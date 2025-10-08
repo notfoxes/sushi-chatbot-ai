@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍣 Sushi Bot AI - Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        body { 
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .chat-bubble { animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .ai-thinking {
+            background: linear-gradient(-45deg, #e3f2fd, #bbdefb, #e3f2fd, #bbdefb);
+            background-size: 400% 400%;
+            animation: gradient 2s ease infinite;
+        }
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+        }
+        .quick-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .quick-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .featured-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .featured-card:hover {
+            transform: translateX(5px);
+            box-shadow: -5px 5px 20px rgba(102, 126, 234, 0.2);
+        }
+        .message-user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .message-bot {
+            background: white;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .message-ai {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="bg-white/10 backdrop-blur-lg border-b border-white/20 sticky top-0 z-40 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-2xl shadow-lg">
+                        🍣
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-white font-display">Sushi & Cocina Japonesa</h1>
+                        <p class="text-sm text-white/70">Asistente Virtual Premium</p>
+                    </div>
+                    <span id="aiStatus" class="px-4 py-2 rounded-full text-xs font-semibold bg-red-500/20 text-red-200 border border-red-500/50">
+                        ⚠️ No configurado
+                    </span>
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="toggleConfig()" class="bg-white/10 text-white px-5 py-2.5 rounded-xl hover:bg-white/20 transition font-medium backdrop-blur">
+                        ⚙️ Config
+                    </button>
+                    <button id="langBtn" class="bg-white/10 text-white px-5 py-2.5 rounded-xl hover:bg-white/20 transition font-medium backdrop-blur">
+                        🌐 EN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-6 py-10">
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <!-- Chat Section -->
+            <div class="lg:col-span-2">
+                <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
+                    
+                    <!-- Chat Header -->
+                    <div class="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white p-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl backdrop-blur">
+                                🤖
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold font-display">Asistente Sushi AI</h2>
+                                <p class="text-sm text-white/90">Experto en sushi y cocina japonesa</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-white to-purple-50">
+                        <!-- Messages will be added here -->
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="p-6 bg-gray-50 border-t-2 border-gray-100">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+                            <button onclick="quickMessage('Muéstrame el menú')" class="quick-btn bg-gradient-to-br from-purple-500 to-purple-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                                🍱 Menú
+                            </button>
+                            <button onclick="quickMessage('Dame recomendaciones')" class="quick-btn bg-gradient-to-br from-pink-500 to-pink-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                                ⭐ Top 3
+                            </button>
+                            <button onclick="quickMessage('Opciones sin gluten')" class="quick-btn bg-gradient-to-br from-red-500 to-red-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                                🚫 Alergias
+                            </button>
+                            <button onclick="quickMessage('Platillos especiales')" class="quick-btn bg-gradient-to-br from-yellow-500 to-yellow-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                                🌟 Especiales
+                            </button>
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="flex space-x-3">
+                            <input 
+                                type="text" 
+                                id="chatInput" 
+                                class="flex-1 border-2 border-gray-200 rounded-xl px-5 py-3.5 text-gray-800 placeholder-gray-400 transition" 
+                                placeholder="Pregunta sobre sushi, ingredientes, alergias..."
+                                onkeypress="if(event.key==='Enter') sendMessage()"
+                            >
+                            <button onclick="sendMessage()" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg">
+                                <span class="text-lg">➤</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                
+                <!-- User Profile Card -->
+                <div class="glass-card rounded-2xl shadow-xl p-6">
+                    <div id="guestView">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                                👤
+                            </div>
+                            <p class="text-gray-600 text-sm mb-1">Modo Invitado</p>
+                            <p class="text-xs text-gray-400">Usa el chatbot sin registro</p>
+                        </div>
+                        
+                        <button onclick="showRegister()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:shadow-xl transition transform hover:scale-105">
+                            ✨ Guardar mis preferencias
+                        </button>
+                        
+                        <div class="mt-4 p-3 bg-purple-50 rounded-xl">
+                            <p class="text-xs text-purple-700">
+                                <strong>💡 Beneficios:</strong><br>
+                                • Recomendaciones personalizadas<br>
+                                • Historial de pedidos<br>
+                                • Sin registros repetidos
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="userView" class="hidden">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                                👋
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg" id="userName">Usuario</h3>
+                            <p class="text-xs text-gray-500" id="userPhone">Teléfono</p>
+                            <div class="flex items-center justify-center space-x-2 mt-2">
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">✓ Verificado</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center p-3 bg-purple-50 rounded-xl">
+                                <span class="text-sm text-gray-700">🍱 Visitas</span>
+                                <span class="font-bold text-purple-600" id="userVisits">1</span>
+                            </div>
+                            <div class="p-3 bg-pink-50 rounded-xl">
+                                <p class="text-xs text-gray-600 mb-1">⭐ Favorito:</p>
+                                <p class="text-sm font-semibold text-gray-800" id="userFavorite">Aún no tienes</p>
+                            </div>
+                        </div>
+                        
+                        <button onclick="logout()" class="w-full bg-gray-200 text-gray-700 py-2.5 rounded-xl font-medium hover:bg-gray-300 transition text-sm">
+                            🚪 Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Featured Items -->
+                <div class="glass-card rounded-2xl shadow-xl p-6">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <span class="text-2xl">🌟</span>
+                        <h3 class="text-xl font-bold text-gray-800 font-display">Destacados</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="featured-card border-l-4 border-purple-500 pl-4 bg-gradient-to-r from-purple-50 to-transparent p-4 rounded-r-xl">
+                            <h4 class="font-bold text-gray-800 mb-1">Toro Trufa</h4>
+                            <p class="text-xs text-gray-600 mb-2">Atún graso, shiso, aceite de trufa</p>
+                            <p class="text-lg font-bold text-purple-600">$229</p>
+                        </div>
+                        <div class="featured-card border-l-4 border-pink-500 pl-4 bg-gradient-to-r from-pink-50 to-transparent p-4 rounded-r-xl">
+                            <h4 class="font-bold text-gray-800 mb-1">Chirashi Bowl</h4>
+                            <p class="text-xs text-gray-600 mb-2">Surtido premium de sashimi</p>
+                            <p class="text-lg font-bold text-pink-600">$229</p>
+                        </div>
+                        <div class="featured-card border-l-4 border-red-500 pl-4 bg-gradient-to-r from-red-50 to-transparent p-4 rounded-r-xl">
+                            <h4 class="font-bold text-gray-800 mb-1">Roll Volcán</h4>
+                            <p class="text-xs text-gray-600 mb-2">Cangrejo, masago, picante gratinado</p>
+                            <p class="text-lg font-bold text-red-600">$199</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="rounded-2xl shadow-xl p-6 bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 text-white overflow-hidden relative">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-4 font-display">💡 Puedo ayudarte con:</h3>
+                        <ul class="space-y-2.5 text-sm">
+                            <li class="flex items-start space-x-2">
+                                <span class="text-yellow-300">✓</span>
+                                <span>Explicar cualquier roll o platillo</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-yellow-300">✓</span>
+                                <span>Ingredientes detallados</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-yellow-300">✓</span>
+                                <span>Opciones sin gluten/veganas</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-yellow-300">✓</span>
+                                <span>Identificar alérgenos</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-yellow-300">✓</span>
+                                <span>Ajustar nivel de picante</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <span class="text-yellow-300">✓</span>
+                                <span>Recomendaciones personalizadas</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Config Modal -->
+    <div id="configModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <h3 class="text-2xl font-bold mb-6 font-display">Configuración API</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-2">OpenAI API Key</label>
+                    <input type="password" id="openaiKey" class="w-full border-2 rounded-xl px-4 py-3 text-sm" placeholder="sk-proj-...">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Supabase URL</label>
+                    <input type="text" id="supabaseUrl" class="w-full border-2 rounded-xl px-4 py-3 text-sm" placeholder="https://xxx.supabase.co">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Supabase Key</label>
+                    <input type="password" id="supabaseKey" class="w-full border-2 rounded-xl px-4 py-3 text-sm" placeholder="eyJ...">
+                </div>
+                <div class="flex space-x-3 pt-4">
+                    <button onclick="toggleConfig()" class="flex-1 bg-gray-100 py-3 rounded-xl font-semibold hover:bg-gray-200">Cancelar</button>
+                    <button onclick="saveConfig()" class="flex-1 btn-primary text-white py-3 rounded-xl font-semibold">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                    ✨
+                </div>
+                <h3 class="text-2xl font-bold mb-2 font-display">¡Solo 2 datos!</h3>
+                <p class="text-sm text-gray-600">Para personalizar tu experiencia</p>
+            </div>
+            
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">¿Cómo te llamamos? *</label>
+                        <input type="text" id="regName" required class="w-full border-2 rounded-xl px-4 py-3" placeholder="Ej: Ana, Carlos">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Tu número (WhatsApp) *</label>
+                        <input type="tel" id="regPhone" required class="w-full border-2 rounded-xl px-4 py-3" placeholder="33 1234 5678">
+                        <p class="text-xs text-gray-500 mt-1">Para confirmaciones y ofertas especiales</p>
+                    </div>
+                    <div id="emailSection" class="hidden">
+                        <label class="block text-sm font-semibold mb-2">Email (opcional)</label>
+                        <input type="email" id="regEmail" class="w-full border-2 rounded-xl px-4 py-3" placeholder="tu@email.com">
+                    </div>
+                    <button type="button" onclick="toggleEmail()" class="text-xs text-purple-600 hover:text-purple-700 font-medium">
+                        + Agregar email (opcional)
+                    </button>
+                    <div class="p-3 bg-green-50 border border-green-200 rounded-xl">
+                        <p class="text-xs text-green-800">
+                            🔒 Tus datos están seguros. Solo para mejorar tu experiencia.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex space-x-3 pt-4">
+                    <button type="button" onclick="hideRegister()" class="flex-1 bg-gray-100 py-3 rounded-xl font-semibold hover:bg-gray-200">
+                        Después
+                    </button>
+                    <button type="submit" class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:shadow-xl transition">
+                        ¡Listo! 🎉
+                    </button>
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-4">
+                    Puedes continuar como invitado si prefieres
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let config = {openai: null, supabase: {url: null, key: null}};
+        let currentUser = null;
+        let isConfigured = false;
+        let conversationHistory = []; // NUEVO: Historial completo
+        let detectedPreferences = { // NUEVO: Preferencias detectadas
+            allergies: [],
+            dislikes: [],
+            spicyLevel: null,
+            dietaryRestrictions: []
+        };
+        
+        // Cargar configuración
+        const saved = localStorage.getItem('sushiConfig');
+        if (saved) {
+            try {
+                config = JSON.parse(saved);
+                document.getElementById('openaiKey').value = config.openai || '';
+                document.getElementById('supabaseUrl').value = config.supabase?.url || '';
+                document.getElementById('supabaseKey').value = config.supabase?.key || '';
+                
+                if (config.openai && config.supabase?.url && config.supabase?.key) {
+                    isConfigured = true;
+                    updateAIStatus();
+                }
+            } catch(e) {}
+        }
+        
+        // Cargar usuario
+        const savedUser = localStorage.getItem('sushiUser');
+        if (savedUser) {
+            try {
+                currentUser = JSON.parse(savedUser);
+                currentUser.visits = (currentUser.visits || 1) + 1;
+                
+                // Cargar preferencias guardadas
+                if (currentUser.preferences) {
+                    detectedPreferences = {
+                        allergies: currentUser.preferences.allergies || [],
+                        dislikes: currentUser.preferences.dislikes || [],
+                        spicyLevel: currentUser.preferences.spicyLevel || null,
+                        dietaryRestrictions: currentUser.preferences.dietaryRestrictions || []
+                    };
+                }
+                
+                localStorage.setItem('sushiUser', JSON.stringify(currentUser));
+                updateUserUI();
+            } catch(e) {}
+        }
+        
+        // Cargar historial de conversación
+        const savedHistory = localStorage.getItem('conversationHistory');
+        if (savedHistory) {
+            try {
+                conversationHistory = JSON.parse(savedHistory);
+            } catch(e) {}
+        }
+        
+        // Mensaje inicial
+        setTimeout(() => {
+            const greeting = currentUser ? `¡Hola de nuevo, <strong>${currentUser.name}</strong>!` : '¡Konnichiwa!';
+            addBotMessage(`
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-xl">🍣</div>
+                    <div>
+                        <strong class="text-lg">${greeting}</strong> Soy tu asistente de sushi<br><br>
+                        ${currentUser ? `<div class="p-2 bg-purple-50 rounded-lg mb-2 text-sm"><strong>👤 Tu perfil:</strong><br>• Visitas: ${currentUser.visits}<br></div>` : ''}
+                        <strong>🎯 Servicios:</strong> Menú, recomendaciones, alergias, ingredientes<br><br>
+                        <strong class="text-purple-600">¡Usa los botones o pregúntame!</strong>
+                    </div>
+                </div>
+            `, false);
+        }, 500);
+        
+        function updateAIStatus() {
+            const status = document.getElementById('aiStatus');
+            if (isConfigured) {
+                status.className = 'px-4 py-2 rounded-full text-xs font-semibold bg-green-500/20 text-green-200 border border-green-500/50';
+                status.textContent = '✅ AI Activa';
+            }
+        }
+        
+        function updateUserUI() {
+            if (currentUser) {
+                document.getElementById('guestView').classList.add('hidden');
+                document.getElementById('userView').classList.remove('hidden');
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userPhone').textContent = currentUser.phone;
+                document.getElementById('userVisits').textContent = currentUser.visits || 1;
+                document.getElementById('userFavorite').textContent = currentUser.favoriteDish || 'Aún no tienes';
+            } else {
+                document.getElementById('guestView').classList.remove('hidden');
+                document.getElementById('userView').classList.add('hidden');
+            }
+        }
+        
+        function toggleConfig() {
+            document.getElementById('configModal').classList.toggle('hidden');
+        }
+        
+        function saveConfig() {
+            config = {
+                openai: document.getElementById('openaiKey').value.trim(),
+                supabase: {
+                    url: document.getElementById('supabaseUrl').value.trim(),
+                    key: document.getElementById('supabaseKey').value.trim()
+                }
+            };
+            
+            if (config.openai && config.supabase.url && config.supabase.key) {
+                isConfigured = true;
+                updateAIStatus();
+                
+                // Sincronizar usuario existente con Supabase
+                if (currentUser) {
+                    syncUserToSupabase();
+                }
+            }
+            
+            localStorage.setItem('sushiConfig', JSON.stringify(config));
+            alert('✅ Configuración guardada exitosamente');
+            toggleConfig();
+        }
+        
+        // NUEVA: Sincronizar usuario con Supabase
+        async function syncUserToSupabase() {
+            if (!config.supabase.url || !config.supabase.key || !currentUser) return;
+            
+            try {
+                // Buscar si el usuario ya existe por teléfono
+                const checkUrl = config.supabase.url + '/rest/v1/customers?phone=eq.' + encodeURIComponent(currentUser.phone);
+                const checkResponse = await fetch(checkUrl, {
+                    headers: {
+                        'apikey': config.supabase.key,
+                        'Authorization': 'Bearer ' + config.supabase.key
+                    }
+                });
+                
+                const existing = await checkResponse.json();
+                
+                if (existing && existing.length > 0) {
+                    // Usuario existe, actualizar
+                    currentUser.id = existing[0].id;
+                    await updateUserInSupabase();
+                    console.log('✅ Usuario sincronizado con Supabase (actualizado)');
+                } else {
+                    // Usuario no existe, crear
+                    await createUserInSupabase();
+                    console.log('✅ Usuario creado en Supabase');
+                }
+            } catch (error) {
+                console.error('❌ Error sincronizando con Supabase:', error);
+            }
+        }
+        
+        // NUEVA: Crear usuario en Supabase
+        async function createUserInSupabase() {
+            if (!config.supabase.url || !config.supabase.key || !currentUser) return;
+            
+            try {
+                const url = config.supabase.url + '/rest/v1/customers';
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': config.supabase.key,
+                        'Authorization': 'Bearer ' + config.supabase.key,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({
+                        phone: currentUser.phone,
+                        name: currentUser.name,
+                        email: currentUser.email,
+                        total_visits: currentUser.visits || 1,
+                        preferences: JSON.stringify(currentUser.preferences || {})
+                    })
+                });
+                
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    currentUser.id = data[0].id;
+                    localStorage.setItem('sushiUser', JSON.stringify(currentUser));
+                    
+                    // Crear registro de preferencias
+                    await createPreferencesInSupabase(currentUser.id);
+                }
+            } catch (error) {
+                console.error('❌ Error creando usuario:', error);
+            }
+        }
+        
+        // NUEVA: Crear preferencias en Supabase
+        async function createPreferencesInSupabase(customerId) {
+            try {
+                const url = config.supabase.url + '/rest/v1/customer_preferences';
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': config.supabase.key,
+                        'Authorization': 'Bearer ' + config.supabase.key,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        customer_id: customerId,
+                        allergies: detectedPreferences.allergies,
+                        dislikes: detectedPreferences.dislikes,
+                        spicy_level: detectedPreferences.spicyLevel || 'medium',
+                        dietary_restrictions: detectedPreferences.dietaryRestrictions
+                    })
+                });
+            } catch (error) {
+                console.error('❌ Error creando preferencias:', error);
+            }
+        }
+        
+        // NUEVA: Actualizar usuario en Supabase
+        async function updateUserInSupabase() {
+            if (!config.supabase.url || !config.supabase.key || !currentUser || !currentUser.id) return;
+            
+            try {
+                const url = config.supabase.url + '/rest/v1/customers?id=eq.' + currentUser.id;
+                await fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'apikey': config.supabase.key,
+                        'Authorization': 'Bearer ' + config.supabase.key,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        total_visits: currentUser.visits,
+                        last_visit: new Date().toISOString(),
+                        preferences: JSON.stringify(currentUser.preferences || {})
+                    })
+                });
+                
+                // Actualizar preferencias
+                await updatePreferencesInSupabase();
+            } catch (error) {
+                console.error('❌ Error actualizando usuario:', error);
+            }
+        }
+        
+        // NUEVA: Actualizar preferencias en Supabase
+        async function updatePreferencesInSupabase() {
+            if (!currentUser || !currentUser.id) return;
+            
+            try {
+                const url = config.supabase.url + '/rest/v1/customer_preferences?customer_id=eq.' + currentUser.id;
+                await fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'apikey': config.supabase.key,
+                        'Authorization': 'Bearer ' + config.supabase.key,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        allergies: detectedPreferences.allergies,
+                        dislikes: detectedPreferences.dislikes,
+                        spicy_level: detectedPreferences.spicyLevel || 'medium',
+                        dietary_restrictions: detectedPreferences.dietaryRestrictions,
+                        updated_at: new Date().toISOString()
+                    })
+                });
+            } catch (error) {
+                console.error('❌ Error actualizando preferencias:', error);
+            }
+        }
+        
+        // NUEVA: Guardar conversación en Supabase
+        async function saveConversationToSupabase(userMessage, botResponse) {
+            if (!config.supabase.url || !config.supabase.key || !currentUser || !currentUser.id) return;
+            
+            try {
+                const url = config.supabase.url + '/rest/v1/conversations';
+                await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': config.supabase.key,
+                        'Authorization': 'Bearer ' + config.supabase.key,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        customer_id: currentUser.id,
+                        user_message: userMessage,
+                        bot_response: botResponse,
+                        detected_preferences: JSON.stringify(detectedPreferences)
+                    })
+                });
+                
+                console.log('💾 Conversación guardada en Supabase');
+            } catch (error) {
+                console.error('❌ Error guardando conversación:', error);
+            }
+        }
+        
+        function showRegister() {
+            document.getElementById('registerModal').classList.remove('hidden');
+        }
+        
+        function hideRegister() {
+            document.getElementById('registerModal').classList.add('hidden');
+        }
+        
+        function toggleEmail() {
+            document.getElementById('emailSection').classList.toggle('hidden');
+        }
+        
+        function handleRegister(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            
+            if (!name || !phone) {
+                alert('Por favor completa los campos obligatorios');
+                return;
+            }
+            
+            currentUser = {
+                name: name,
+                phone: phone,
+                email: email || null,
+                registeredAt: new Date().toISOString(),
+                visits: 1,
+                favoriteDish: null,
+                preferences: {
+                    allergies: detectedPreferences.allergies || [],
+                    dislikes: detectedPreferences.dislikes || [],
+                    spicyLevel: detectedPreferences.spicyLevel || 'medium',
+                    dietaryRestrictions: detectedPreferences.dietaryRestrictions || []
+                }
+            };
+            
+            localStorage.setItem('sushiUser', JSON.stringify(currentUser));
+            
+            // Crear en Supabase si está configurado
+            if (config.supabase.url && config.supabase.key) {
+                createUserInSupabase();
+            }
+            
+            updateUserUI();
+            hideRegister();
+            
+            addBotMessage(`
+                <strong>🎉 ¡Perfecto, ${name}!</strong><br><br>
+                Ya estás registrado. Ahora puedo:<br>
+                • Recordar tus preferencias y alergias<br>
+                • Hacer recomendaciones personalizadas<br>
+                • Guardar tu historial de pedidos<br>
+                ${config.supabase.url ? '<br>💾 Tus datos se guardan en la nube' : ''}<br><br>
+                <em>¿Qué te gustaría ordenar hoy?</em>
+            `, false);
+            
+            document.getElementById('registerForm').reset();
+            document.getElementById('emailSection').classList.add('hidden');
+        }
+        
+        function logout() {
+            if (confirm('¿Seguro que quieres cerrar sesión?')) {
+                currentUser = null;
+                localStorage.removeItem('sushiUser');
+                
+                // Limpiar historial y preferencias
+                conversationHistory = [];
+                detectedPreferences = {
+                    allergies: [],
+                    dislikes: [],
+                    spicyLevel: null,
+                    dietaryRestrictions: []
+                };
+                localStorage.removeItem('conversationHistory');
+                
+                updateUserUI();
+                addBotMessage('👋 Sesión cerrada. Historial y preferencias borrados.', false);
+            }
+        }
+        
+        // NUEVA: Función para ver preferencias guardadas
+        window.verPreferencias = function() {
+            console.log('📊 PREFERENCIAS DETECTADAS:');
+            console.log('Alergias:', detectedPreferences.allergies);
+            console.log('Nivel de picante:', detectedPreferences.spicyLevel);
+            console.log('Restricciones:', detectedPreferences.dietaryRestrictions);
+            console.log('No le gusta:', detectedPreferences.dislikes);
+            console.log('\n💾 Usuario actual:', currentUser);
+            console.log('\n💬 Historial (últimos 5):', conversationHistory.slice(-5));
+        };
+        
+        // NUEVA: Función para limpiar solo el historial
+        window.limpiarHistorial = function() {
+            if (confirm('¿Borrar historial de conversación? (Las preferencias se mantendrán)')) {
+                conversationHistory = [];
+                localStorage.removeItem('conversationHistory');
+                console.log('✅ Historial limpiado');
+            }
+        };
+        
+        // NUEVA: Verificar conexión con Supabase
+        window.testSupabase = async function() {
+            if (!config.supabase.url || !config.supabase.key) {
+                console.error('❌ Supabase no configurado');
+                return;
+            }
+            
+            try {
+                console.log('🔄 Probando conexión con Supabase...');
+                const url = config.supabase.url + '/rest/v1/customers?limit=1';
+                const response = await fetch(url, {
+                    headers: {
+                        'apikey': config.supabase.key,
+                        'Authorization': 'Bearer ' + config.supabase.key
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('✅ Conexión exitosa con Supabase');
+                    console.log('📊 Datos de prueba:', data);
+                    return true;
+                } else {
+                    console.error('❌ Error de conexión:', response.status, response.statusText);
+                    return false;
+                }
+            } catch (error) {
+                console.error('❌ Error:', error);
+                return false;
+            }
+        };
+        
+        // NUEVA: Ver todos los datos guardados
+        window.verTodosDatos = function() {
+            console.log('═══════════════════════════════════');
+            console.log('📊 TODOS LOS DATOS GUARDADOS');
+            console.log('═══════════════════════════════════');
+            
+            console.log('\n👤 USUARIO ACTUAL:');
+            console.log(currentUser);
+            
+            console.log('\n🧠 PREFERENCIAS DETECTADAS:');
+            console.log('Alergias:', detectedPreferences.allergies);
+            console.log('Nivel de picante:', detectedPreferences.spicyLevel);
+            console.log('Restricciones:', detectedPreferences.dietaryRestrictions);
+            console.log('No le gusta:', detectedPreferences.dislikes);
+            
+            console.log('\n💬 HISTORIAL (últimos 5 mensajes):');
+            const recent = conversationHistory.slice(-5);
+            recent.forEach((msg, i) => {
+                console.log(`${i + 1}. [${msg.role}]:`, msg.content.substring(0, 100) + '...');
+            });
+            
+            console.log('\n💾 DATOS EN LOCALSTORAGE:');
+            console.log('- sushiUser:', !!localStorage.getItem('sushiUser'));
+            console.log('- conversationHistory:', !!localStorage.getItem('conversationHistory'));
+            console.log('- sushiConfig:', !!localStorage.getItem('sushiConfig'));
+            
+            console.log('\n🔧 CONFIGURACIÓN:');
+            console.log('OpenAI configurado:', !!config.openai);
+            console.log('Supabase configurado:', !!(config.supabase.url && config.supabase.key));
+            console.log('Usuario tiene ID:', !!currentUser?.id);
+            
+            console.log('\n═══════════════════════════════════');
+        };
+        
+        function quickMessage(msg) {
+            document.getElementById('chatInput').value = msg;
+            sendMessage();
+        }
+        
+        function addUserMessage(text) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'flex justify-end chat-bubble';
+            div.innerHTML = `<div class="message-user text-white rounded-2xl px-5 py-3 max-w-md">${text}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function addBotMessage(text, isAI = false) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'flex justify-start chat-bubble';
+            
+            const messageClass = isAI ? 'message-ai text-white' : 'message-bot text-gray-800';
+            const aiTag = isAI ? '<div class="flex items-center space-x-1 mb-2"><span class="text-xs opacity-90">🤖 AI</span></div>' : '';
+            
+            div.innerHTML = `<div class="${messageClass} rounded-2xl px-5 py-3 max-w-md">${aiTag}${text}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function addThinkingMessage() {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.id = 'thinking-message';
+            div.className = 'flex justify-start chat-bubble';
+            div.innerHTML = `
+                <div class="ai-thinking text-gray-700 rounded-2xl px-5 py-3 max-w-md shadow-lg">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                        <span class="ml-2">Pensando...</span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function removeThinkingMessage() {
+            const thinking = document.getElementById('thinking-message');
+            if (thinking) thinking.remove();
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            addUserMessage(text);
+            input.value = '';
+            
+            // Detectar y guardar preferencias del mensaje
+            analyzeUserMessage(text);
+            
+            if (isConfigured && config.openai) {
+                addThinkingMessage();
+                
+                try {
+                    const response = await callOpenAI(text);
+                    removeThinkingMessage();
+                    addBotMessage(response, true);
+                    
+                    // Guardar en historial
+                    conversationHistory.push(
+                        {role: 'user', content: text},
+                        {role: 'assistant', content: response}
+                    );
+                    
+                    // Limitar historial a últimos 20 mensajes
+                    if (conversationHistory.length > 20) {
+                        conversationHistory = conversationHistory.slice(-20);
+                    }
+                    
+                    // Guardar en localStorage
+                    localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+                    
+                    // Guardar en Supabase si está configurado
+                    if (config.supabase.url && config.supabase.key) {
+                        saveConversationToSupabase(text, response);
+                        
+                        // Actualizar visitas del usuario
+                        if (currentUser && currentUser.id) {
+                            updateUserInSupabase();
+                        }
+                    }
+                    
+                } catch(error) {
+                    removeThinkingMessage();
+                    addBotMessage('❌ Error: ' + error.message, false);
+                }
+            } else {
+                setTimeout(() => {
+                    const response = getBasicResponse(text);
+                    addBotMessage(response, false);
+                }, 800);
+            }
+        }
+        
+        // NUEVO: Analizar mensaje para detectar preferencias
+        function analyzeUserMessage(text) {
+            const lower = text.toLowerCase();
+            
+            // Detectar alergias
+            const allergyPhrases = ['alérgico', 'alergia', 'no puedo comer', 'me hace daño'];
+            if (allergyPhrases.some(phrase => lower.includes(phrase))) {
+                const ingredients = ['camarón', 'camaron', 'pescado', 'mariscos', 'gluten', 'lacteos', 'soya', 'huevo', 'nueces', 'sesamo', 'ajonjoli'];
+                ingredients.forEach(ing => {
+                    if (lower.includes(ing) && !detectedPreferences.allergies.includes(ing)) {
+                        detectedPreferences.allergies.push(ing);
+                        console.log('🚫 Alergia detectada:', ing);
+                    }
+                });
+            }
+            
+            // Detectar nivel de picante
+            if (lower.includes('poco picante') || lower.includes('no picante') || lower.includes('suave')) {
+                detectedPreferences.spicyLevel = 'bajo';
+            } else if (lower.includes('muy picante') || lower.includes('extra picante')) {
+                detectedPreferences.spicyLevel = 'alto';
+            } else if (lower.includes('picante medio')) {
+                detectedPreferences.spicyLevel = 'medio';
+            }
+            
+            // Detectar restricciones dietéticas
+            const dietKeywords = {
+                'vegetariano': 'vegetarian',
+                'vegano': 'vegan',
+                'sin gluten': 'gluten_free'
+            };
+            Object.entries(dietKeywords).forEach(([keyword, value]) => {
+                if (lower.includes(keyword) && !detectedPreferences.dietaryRestrictions.includes(value)) {
+                    detectedPreferences.dietaryRestrictions.push(value);
+                }
+            });
+            
+            // Guardar en usuario si está registrado
+            if (currentUser) {
+                currentUser.preferences = {
+                    allergies: detectedPreferences.allergies,
+                    dislikes: detectedPreferences.dislikes,
+                    spicyLevel: detectedPreferences.spicyLevel,
+                    dietaryRestrictions: detectedPreferences.dietaryRestrictions
+                };
+                localStorage.setItem('sushiUser', JSON.stringify(currentUser));
+            }
+        }
+        
+        async function callOpenAI(message) {
+            let contextInfo = '';
+            
+            // Información del usuario
+            if (currentUser) {
+                contextInfo = 'PERFIL DEL USUARIO:\n';
+                contextInfo += '- Nombre: ' + currentUser.name + '\n';
+                contextInfo += '- Visitas: ' + (currentUser.visits || 1) + '\n';
+                if (currentUser.favoriteDish) {
+                    contextInfo += '- Platillo favorito: ' + currentUser.favoriteDish + '\n';
+                }
+            }
+            
+            // Preferencias detectadas
+            if (detectedPreferences.allergies.length > 0) {
+                contextInfo += '\n🚫 ALERGIAS IMPORTANTES:\n';
+                contextInfo += detectedPreferences.allergies.map(a => '- ' + a.toUpperCase()).join('\n');
+                contextInfo += '\n⚠️ NUNCA recomiendes platillos con estos ingredientes.\n';
+            }
+            
+            if (detectedPreferences.spicyLevel) {
+                contextInfo += '\n🌶️ Nivel de picante preferido: ' + detectedPreferences.spicyLevel + '\n';
+            }
+            
+            if (detectedPreferences.dietaryRestrictions.length > 0) {
+                contextInfo += '\n🥗 Restricciones dietéticas: ' + detectedPreferences.dietaryRestrictions.join(', ') + '\n';
+            }
+            
+            if (detectedPreferences.dislikes.length > 0) {
+                contextInfo += '\n👎 No le gusta: ' + detectedPreferences.dislikes.join(', ') + '\n';
+            }
+            
+            const systemPrompt = 'Eres un asistente experto en sushi y cocina japonesa.\n\n' + contextInfo + '\n\nMENÚ COMPLETO:\n• Toro Trufa $229 (atún graso, shiso, aceite de trufa, yuzu)\n• Chirashi Bowl $229 (surtido de sashimi: atún, salmón, pulpo)\n• Roll Volcán $199 (cangrejo real, masago, picante)\n• Roll Dragón $179 (camarón tempura, aguacate, unagi)\n• Roll Arcoíris $189 (california + salmón, atún, hamachi)\n• Philadelphia $149 (salmón, queso crema)\n• Cangrejo suave $219 (soft-shell crab frito)\n• Nigiri variados $79-119\n• Sashimi $165-185\n• Edamame $85\n• Gyoza $119\n\nINSTRUCCIONES CRÍTICAS:\n1. RECUERDA TODO lo que el usuario te ha dicho en esta conversación\n2. Si mencionó alergias, NUNCA las olvides ni recomiendes esos ingredientes\n3. Si pregunta "a qué soy alérgico?" responde con la información que ya te dio\n4. Si mencionó preferencias de picante, respétalas\n5. Responde de forma amigable y concisa (máximo 4-5 líneas)\n6. Si el usuario es ' + (currentUser ? currentUser.name : 'invitado') + ', dirígete a él por su nombre';
+            
+            // Construir mensajes con historial
+            const messages = [
+                {role: 'system', content: systemPrompt}
+            ];
+            
+            // Agregar historial de conversación (últimos 10 mensajes para contexto)
+            const recentHistory = conversationHistory.slice(-10);
+            messages.push(...recentHistory);
+            
+            // Agregar mensaje actual
+            messages.push({role: 'user', content: message});
+            
+            try {
+                const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+                    model: 'gpt-4o-mini',
+                    messages: messages,
+                    max_tokens: 400,
+                    temperature: 0.7
+                }, {
+                    headers: {
+                        'Authorization': 'Bearer ' + config.openai,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                return response.data.choices[0].message.content;
+            } catch(error) {
+                console.error('Error OpenAI:', error);
+                throw new Error(error.response?.data?.error?.message || 'Error de conexión');
+            }
+        }
+        
+        function getBasicResponse(text) {
+            const lower = text.toLowerCase();
+            
+            if (lower.includes('menu') || lower.includes('menú') || lower.includes('carta')) {
+                return '<strong class="text-lg">🍱 MENÚ DESTACADO</strong><br><br><strong>Rolls de Autor Premium:</strong><br>• <strong>Toro Trufa</strong> — $229 ⭐⭐<br>• <strong>Volcán</strong> — $199 🌶️<br>• <strong>Arcoíris</strong> — $189<br>• <strong>Dragón</strong> — $179<br><br><strong>Bowls Especiales:</strong><br>• <strong>Chirashi Bowl</strong> — $229<br>• <strong>Poke Salmón Yuzu</strong> — $189<br><br><em>¿Quieres ver entradas, nigiri o sashimi?</em>';
+            }
+            
+            if (lower.includes('recomend') || lower.includes('mejor') || lower.includes('popular')) {
+                return '<strong class="text-lg">⭐ TOP 3 RECOMENDACIONES</strong><br><br><strong>🥇 Toro Trufa — $229</strong><br>Atún graso, shiso, aceite de trufa, yuzu<br><em>Nuestra joya de la corona</em><br><br><strong>🥈 Chirashi Bowl — $229</strong><br>Surtido premium de sashimi sobre arroz<br><em>Perfecto para probar variedad</em><br><br><strong>🥉 Roll Volcán — $199</strong><br>Cangrejo real, masago, picante gratinado<br><em>Favorito de los clientes</em>';
+            }
+            
+            if (lower.includes('sin gluten') || lower.includes('celiac') || lower.includes('gluten') || lower.includes('alergi')) {
+                return '<strong class="text-lg">🚫 OPCIONES SIN GLUTEN</strong><br><br><strong>✓ Completamente seguros:</strong><br>• Todos los nigiri y sashimi<br>• Rolls con salsa tamari (+$12)<br>• Edamame y ensalada wakame<br>• Poke de salmón yuzu<br><br><strong>⚠️ EVITAR:</strong><br>• Tempura (contiene gluten)<br>• Gyoza<br>• Salsa de soya regular<br><br><strong>Importante:</strong> Pide salsa tamari';
+            }
+            
+            if (lower.includes('vegan') || lower.includes('vegano') || lower.includes('vegetarian')) {
+                return '<strong class="text-lg">🥒 OPCIONES VEGANAS/VEGETARIANAS</strong><br><br><strong>Rolls:</strong><br>• Kappa (pepino) — $79<br>• Aguacate — $89<br>• Veggie Tempura — $149<br><br><strong>Entradas:</strong><br>• Ensalada wakame — $99<br>• Edamame — $85<br><br><em>Podemos personalizar rolls sin pescado ni lácteos</em>';
+            }
+            
+            if (lower.includes('precio') || lower.includes('cuanto') || lower.includes('cuesta')) {
+                return '<strong class="text-lg">💰 RANGOS DE PRECIO</strong><br><br><strong>Entradas:</strong> $85 - $119<br><strong>Nigiri:</strong> $79 - $119 (2 pzas)<br><strong>Sashimi:</strong> $165 - $185 (5 pzas)<br><strong>Rolls clásicos:</strong> $79 - $129<br><strong>Rolls de autor:</strong> $149 - $229<br><strong>Bowls:</strong> $189 - $229';
+            }
+            
+            return 'Gracias por tu pregunta. Puedo ayudarte con:<br><br>🍽️ Información del menú<br>⭐ Recomendaciones<br>🚫 Alergias e intolerancias<br>🌶️ Nivel de picante<br>💰 Precios<br><br><strong>💡 Tip:</strong> Para respuestas más inteligentes, configura la IA en Config (⚙️)';
+        }
+        
+        console.log('🍣 Sushi Bot AI Premium cargado');
+        console.log('✅ Diseño elegante restaurado');
+        console.log('👤 Sistema de usuarios activo');
+        console.log('🧠 Sistema de memoria conversacional activo');
+        console.log('💾 Alergias y preferencias se guardan automáticamente');
+        console.log('\n🛠️ COMANDOS DE CONSOLA:');
+        console.log('  • verPreferencias() - Ver alergias y preferencias detectadas');
+        console.log('  • limpiarHistorial() - Borrar historial (mantiene preferencias)');
+    </script>
+</body>
+</html>
