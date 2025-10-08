@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍣 Sushi Bot AI - Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        body { 
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .chat-bubble { animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .ai-thinking {
+            background: linear-gradient(-45deg, #e3f2fd, #bbdefb, #e3f2fd, #bbdefb);
+            background-size: 400% 400%;
+            animation: gradient 2s ease infinite;
+        }
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+        }
+        .quick-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .quick-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .featured-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .featured-card:hover {
+            transform: translateX(5px);
+            box-shadow: -5px 5px 20px rgba(102, 126, 234, 0.2);
+        }
+        .message-user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .message-bot {
+            background: white;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .message-ai {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="bg-white/10 backdrop-blur-lg border-b border-white/20 sticky top-0 z-40 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-2xl shadow-lg">
+                        🍣
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold text-white font-display">Sushi & Cocina Japonesa</h1>
+                        <p class="text-sm text-white/70">Asistente Virtual Premium con IA</p>
+                    </div>
+                    <span class="px-4 py-2 rounded-full text-xs font-semibold bg-green-500/20 text-green-200 border border-green-500/50">
+                        ✅ Seguro
+                    </span>
+                </div>
+                <button id="langBtn" class="bg-white/10 text-white px-5 py-2.5 rounded-xl hover:bg-white/20 transition font-medium backdrop-blur">
+                    🌐 EN
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-6 py-10">
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <!-- Chat Section -->
+            <div class="lg:col-span-2">
+                <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
+                    
+                    <!-- Chat Header -->
+                    <div class="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white p-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl backdrop-blur">
+                                🤖
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold font-display">Asistente Sushi AI</h2>
+                                <p class="text-sm text-white/90">Powered by OpenAI GPT-4o-mini</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-white to-purple-50">
+                        <!-- Messages -->
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="p-6 bg-gray-50 border-t-2 border-gray-100">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+                            <button onclick="quickMessage('Muéstrame el menú completo')" class="quick-btn bg-gradient-to-br from-purple-500 to-purple-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                                🍱 Menú
+                            </button>
+                            <button onclick="quickMessage('Dame tus mejores recomendaciones')" class="quick-btn bg-gradient-to-br from-pink-500 to-pink-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                                ⭐ Top 3
+                            </button>
+                            <button onclick="quickMessage('Opciones sin gluten por favor')" class="quick-btn bg-gradient-to-br from-red-500 to-red-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                                🚫 Alergias
+                            </button>
+                            <button onclick="quickMessage('Cuáles son los platillos especiales')" class="quick-btn bg-gradient-to-br from-yellow-500 to-yellow-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                                🌟 Especiales
+                            </button>
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="flex space-x-3">
+                            <input 
+                                type="text" 
+                                id="chatInput" 
+                                class="flex-1 border-2 border-gray-200 rounded-xl px-5 py-3.5 text-gray-800 placeholder-gray-400 transition" 
+                                placeholder="Pregunta sobre sushi, ingredientes, alergias..."
+                                onkeypress="if(event.key==='Enter') sendMessage()"
+                            >
+                            <button onclick="sendMessage()" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg">
+                                <span class="text-lg">➤</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                
+                <!-- User Profile Card -->
+                <div class="glass-card rounded-2xl shadow-xl p-6">
+                    <div id="guestView">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                                👤
+                            </div>
+                            <p class="text-gray-600 text-sm mb-1">Modo Invitado</p>
+                            <p class="text-xs text-gray-400">Chatbot listo para usar</p>
+                        </div>
+                        
+                        <button onclick="showRegister()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:shadow-xl transition transform hover:scale-105">
+                            ✨ Guardar mis preferencias
+                        </button>
+                        
+                        <div class="mt-4 p-3 bg-purple-50 rounded-xl">
+                            <p class="text-xs text-purple-700">
+                                <strong>💡 Beneficios:</strong><br>
+                                • Recomendaciones personalizadas<br>
+                                • Historial de pedidos<br>
+                                • Detección de alergias
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="userView" class="hidden">
+                        <div class="text-center mb-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                                👋
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg" id="userName">Usuario</h3>
+                            <p class="text-xs text-gray-500" id="userPhone">Teléfono</p>
+                            <div class="flex items-center justify-center space-x-2 mt-2">
+                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">✓ Registrado</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center p-3 bg-purple-50 rounded-xl">
+                                <span class="text-sm text-gray-700">🍱 Visitas</span>
+                                <span class="font-bold text-purple-600" id="userVisits">1</span>
+                            </div>
+                            <div class="p-3 bg-pink-50 rounded-xl">
+                                <p class="text-xs text-gray-600 mb-1">⭐ Favorito:</p>
+                                <p class="text-sm font-semibold text-gray-800" id="userFavorite">Aún no tienes</p>
+                            </div>
+                        </div>
+                        
+                        <button onclick="logout()" class="w-full bg-gray-200 text-gray-700 py-2.5 rounded-xl font-medium hover:bg-gray-300 transition text-sm">
+                            🚪 Cerrar sesión
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Featured Items -->
+                <div class="glass-card rounded-2xl shadow-xl p-6">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <span class="text-2xl">🌟</span>
+                        <h3 class="text-xl font-bold text-gray-800 font-display">Destacados</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="featured-card border-l-4 border-purple-500 pl-4 bg-gradient-to-r from-purple-50 to-transparent p-4 rounded-r-xl">
+                            <h4 class="font-bold text-gray-800 mb-1">Toro Trufa</h4>
+                            <p class="text-xs text-gray-600 mb-2">Atún graso, shiso, aceite de trufa</p>
+                            <p class="text-lg font-bold text-purple-600">$229</p>
+                        </div>
+                        <div class="featured-card border-l-4 border-pink-500 pl-4 bg-gradient-to-r from-pink-50 to-transparent p-4 rounded-r-xl">
+                            <h4 class="font-bold text-gray-800 mb-1">Chirashi Bowl</h4>
+                            <p class="text-xs text-gray-600 mb-2">Surtido premium de sashimi</p>
+                            <p class="text-lg font-bold text-pink-600">$229</p>
+                        </div>
+                        <div class="featured-card border-l-4 border-red-500 pl-4 bg-gradient-to-r from-red-50 to-transparent p-4 rounded-r-xl">
+                            <h4 class="font-bold text-gray-800 mb-1">Roll Volcán</h4>
+                            <p class="text-xs text-gray-600 mb-2">Cangrejo, masago, picante</p>
+                            <p class="text-lg font-bold text-red-600">$199</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="rounded-2xl shadow-xl p-6 bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 text-white">
+                    <h3 class="text-xl font-bold mb-4 font-display">💡 Puedo ayudarte con:</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li class="flex items-start space-x-2">
+                            <span class="text-yellow-300">✓</span>
+                            <span>Explicar platillos e ingredientes</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-yellow-300">✓</span>
+                            <span>Opciones sin gluten/veganas</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-yellow-300">✓</span>
+                            <span>Identificar alérgenos</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-yellow-300">✓</span>
+                            <span>Ajustar nivel de picante</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <span class="text-yellow-300">✓</span>
+                            <span>Recomendaciones personalizadas</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                    ✨
+                </div>
+                <h3 class="text-2xl font-bold mb-2 font-display">¡Solo 2 datos!</h3>
+                <p class="text-sm text-gray-600">Para personalizar tu experiencia</p>
+            </div>
+            
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">¿Cómo te llamamos? *</label>
+                        <input type="text" id="regName" required class="w-full border-2 rounded-xl px-4 py-3" placeholder="Ej: Ana, Carlos">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Tu número (WhatsApp) *</label>
+                        <input type="tel" id="regPhone" required class="w-full border-2 rounded-xl px-4 py-3" placeholder="33 1234 5678">
+                        <p class="text-xs text-gray-500 mt-1">Para confirmaciones y ofertas especiales</p>
+                    </div>
+                    <div id="emailSection" class="hidden">
+                        <label class="block text-sm font-semibold mb-2">Email (opcional)</label>
+                        <input type="email" id="regEmail" class="w-full border-2 rounded-xl px-4 py-3" placeholder="tu@email.com">
+                    </div>
+                    <button type="button" onclick="toggleEmail()" class="text-xs text-purple-600 hover:text-purple-700 font-medium">
+                        + Agregar email (opcional)
+                    </button>
+                    <div class="p-3 bg-green-50 border border-green-200 rounded-xl">
+                        <p class="text-xs text-green-800">
+                            🔒 Tus datos están seguros y protegidos.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex space-x-3 pt-4">
+                    <button type="button" onclick="hideRegister()" class="flex-1 bg-gray-100 py-3 rounded-xl font-semibold hover:bg-gray-200">
+                        Después
+                    </button>
+                    <button type="submit" class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:shadow-xl transition">
+                        ¡Listo! 🎉
+                    </button>
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-4">
+                    Puedes continuar como invitado si prefieres
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ✅ SIN API KEYS - Todo se maneja en el backend
+        let currentUser = null;
+        let conversationHistory = [];
+        let detectedPreferences = {
+            allergies: [],
+            dislikes: [],
+            spicyLevel: null,
+            dietaryRestrictions: []
+        };
+        
+        // Cargar usuario
+        const savedUser = localStorage.getItem('sushiUser');
+        if (savedUser) {
+            try {
+                currentUser = JSON.parse(savedUser);
+                currentUser.visits = (currentUser.visits || 1) + 1;
+                
+                if (currentUser.preferences) {
+                    detectedPreferences = {
+                        allergies: currentUser.preferences.allergies || [],
+                        dislikes: currentUser.preferences.dislikes || [],
+                        spicyLevel: currentUser.preferences.spicyLevel || null,
+                        dietaryRestrictions: currentUser.preferences.dietaryRestrictions || []
+                    };
+                }
+                
+                localStorage.setItem('sushiUser', JSON.stringify(currentUser));
+                updateUserUI();
+            } catch(e) {}
+        }
+        
+        // Cargar historial
+        const savedHistory = localStorage.getItem('conversationHistory');
+        if (savedHistory) {
+            try {
+                conversationHistory = JSON.parse(savedHistory);
+            } catch(e) {}
+        }
+        
+        // Mensaje inicial
+        setTimeout(() => {
+            const greeting = currentUser ? `¡Hola de nuevo, <strong>${currentUser.name}</strong>!` : '¡Konnichiwa!';
+            addBotMessage(`
+                <div class="flex items-start space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-xl">🍣</div>
+                    <div>
+                        <strong class="text-lg">${greeting}</strong> Soy tu asistente de sushi con IA<br><br>
+                        ${currentUser ? `<div class="p-2 bg-purple-50 rounded-lg mb-2 text-sm"><strong>👤 Tu perfil:</strong><br>• Visitas: ${currentUser.visits}<br></div>` : ''}
+                        <strong>🎯 Servicios:</strong> Menú, recomendaciones, alergias, ingredientes<br><br>
+                        <strong class="text-purple-600">¡Usa los botones o pregúntame lo que quieras!</strong>
+                    </div>
+                </div>
+            `, false);
+        }, 500);
+        
+        function updateUserUI() {
+            if (currentUser) {
+                document.getElementById('guestView').classList.add('hidden');
+                document.getElementById('userView').classList.remove('hidden');
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userPhone').textContent = currentUser.phone;
+                document.getElementById('userVisits').textContent = currentUser.visits || 1;
+                document.getElementById('userFavorite').textContent = currentUser.favoriteDish || 'Aún no tienes';
+            } else {
+                document.getElementById('guestView').classList.remove('hidden');
+                document.getElementById('userView').classList.add('hidden');
+            }
+        }
+        
+        function showRegister() {
+            document.getElementById('registerModal').classList.remove('hidden');
+        }
+        
+        function hideRegister() {
+            document.getElementById('registerModal').classList.add('hidden');
+        }
+        
+        function toggleEmail() {
+            document.getElementById('emailSection').classList.toggle('hidden');
+        }
+        
+        async function handleRegister(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            
+            if (!name || !phone) {
+                alert('Por favor completa los campos obligatorios');
+                return;
+            }
+            
+            currentUser = {
+                name: name,
+                phone: phone,
+                email: email || null,
+                registeredAt: new Date().toISOString(),
+                visits: 1,
+                favoriteDish: null,
+                preferences: {
+                    allergies: detectedPreferences.allergies || [],
+                    dislikes: detectedPreferences.dislikes || [],
+                    spicyLevel: detectedPreferences.spicyLevel || 'medium',
+                    dietaryRestrictions: detectedPreferences.dietaryRestrictions || []
+                }
+            };
+            
+            localStorage.setItem('sushiUser', JSON.stringify(currentUser));
+            
+            // Guardar en backend (Supabase)
+            try {
+                await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        action: 'POST',
+                        table: 'customers',
+                        data: {
+                            phone: currentUser.phone,
+                            name: currentUser.name,
+                            email: currentUser.email,
+                            total_visits: 1,
+                            preferences: JSON.stringify(currentUser.preferences)
+                        }
+                    })
+                });
+            } catch(error) {
+                console.log('Info: Usuario guardado localmente');
+            }
+            
+            updateUserUI();
+            hideRegister();
+            
+            addBotMessage(`
+                <strong>🎉 ¡Perfecto, ${name}!</strong><br><br>
+                Ya estás registrado. Ahora puedo:<br>
+                • Recordar tus preferencias y alergias<br>
+                • Hacer recomendaciones personalizadas<br>
+                • Guardar tu historial de pedidos<br><br>
+                <em>¿Qué te gustaría ordenar hoy?</em>
+            `, false);
+            
+            document.getElementById('registerForm').reset();
+            document.getElementById('emailSection').classList.add('hidden');
+        }
+        
+        function logout() {
+            if (confirm('¿Seguro que quieres cerrar sesión?')) {
+                currentUser = null;
+                localStorage.removeItem('sushiUser');
+                conversationHistory = [];
+                detectedPreferences = {
+                    allergies: [],
+                    dislikes: [],
+                    spicyLevel: null,
+                    dietaryRestrictions: []
+                };
+                localStorage.removeItem('conversationHistory');
+                updateUserUI();
+                addBotMessage('👋 Sesión cerrada. Historial y preferencias borrados.', false);
+            }
+        }
+        
+        function quickMessage(msg) {
+            document.getElementById('chatInput').value = msg;
+            sendMessage();
+        }
+        
+        function addUserMessage(text) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'flex justify-end chat-bubble';
+            div.innerHTML = `<div class="message-user text-white rounded-2xl px-5 py-3 max-w-md">${text}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function addBotMessage(text, isAI = false) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = 'flex justify-start chat-bubble';
+            
+            const messageClass = isAI ? 'message-ai text-white' : 'message-bot text-gray-800';
+            const aiTag = isAI ? '<div class="flex items-center space-x-1 mb-2"><span class="text-xs opacity-90">🤖 AI</span></div>' : '';
+            
+            div.innerHTML = `<div class="${messageClass} rounded-2xl px-5 py-3 max-w-md">${aiTag}${text}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function addThinkingMessage() {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.id = 'thinking-message';
+            div.className = 'flex justify-start chat-bubble';
+            div.innerHTML = `
+                <div class="ai-thinking text-gray-700 rounded-2xl px-5 py-3 max-w-md shadow-lg">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                        <span class="ml-2">Pensando...</span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        function removeThinkingMessage() {
+            const thinking = document.getElementById('thinking-message');
+            if (thinking) thinking.remove();
+        }
+        
+        function analyzeUserMessage(text) {
+            const lower = text.toLowerCase();
+            let preferencesChanged = false;
+            
+            // Detectar alergias
+            const allergyPhrases = ['alérgico', 'alergia', 'no puedo comer', 'me hace daño'];
+            if (allergyPhrases.some(phrase => lower.includes(phrase))) {
+                const ingredients = ['camarón', 'camaron', 'pescado', 'mariscos', 'gluten', 'lacteos', 'soya', 'huevo', 'nueces', 'sesamo', 'ajonjoli'];
+                ingredients.forEach(ing => {
+                    if (lower.includes(ing) && !detectedPreferences.allergies.includes(ing)) {
+                        detectedPreferences.allergies.push(ing);
+                        preferencesChanged = true;
+                    }
+                });
+            }
+            
+            // Detectar nivel de picante
+            if (lower.includes('poco picante') || lower.includes('no picante') || lower.includes('suave')) {
+                if (detectedPreferences.spicyLevel !== 'bajo') {
+                    detectedPreferences.spicyLevel = 'bajo';
+                    preferencesChanged = true;
+                }
+            } else if (lower.includes('muy picante') || lower.includes('extra picante')) {
+                if (detectedPreferences.spicyLevel !== 'alto') {
+                    detectedPreferences.spicyLevel = 'alto';
+                    preferencesChanged = true;
+                }
+            }
+            
+            // Guardar preferencias
+            if (currentUser && preferencesChanged) {
+                currentUser.preferences = {
+                    allergies: detectedPreferences.allergies,
+                    dislikes: detectedPreferences.dislikes,
+                    spicyLevel: detectedPreferences.spicyLevel,
+                    dietaryRestrictions: detectedPreferences.dietaryRestrictions
+                };
+                localStorage.setItem('sushiUser', JSON.stringify(currentUser));
+            }
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            addUserMessage(text);
+            input.value = '';
+            
+            analyzeUserMessage(text);
+            addThinkingMessage();
+            
+            try {
+                // ✅ Llamar al backend seguro (sin exponer API keys)
+                let userContext = '';
+                
+                if (currentUser) {
+                    userContext = 'PERFIL DEL USUARIO:\n';
+                    userContext += '- Nombre: ' + currentUser.name + '\n';
+                    userContext += '- Visitas: ' + (currentUser.visits || 1) + '\n';
+                }
+                
+                if (detectedPreferences.allergies.length > 0) {
+                    userContext += '\n🚫 ALERGIAS IMPORTANTES:\n';
+                    userContext += detectedPreferences.allergies.map(a => '- ' + a.toUpperCase()).join('\n');
+                    userContext += '\n⚠️ NUNCA recomiendes platillos con estos ingredientes.\n';
+                }
+                
+                if (detectedPreferences.spicyLevel) {
+                    userContext += '\n🌶️ Nivel de picante preferido: ' + detectedPreferences.spicyLevel + '\n';
+                }
+                
+                // Construir mensajes
+                const messages = [];
+                const recentHistory = conversationHistory.slice(-10);
+                messages.push(...recentHistory);
+                messages.push({role: 'user', content: text});
+                
+                // Llamar al backend
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        messages: messages,
+                        userContext: userContext
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error || 'Error en la respuesta');
+                }
+                
+                removeThinkingMessage();
+                addBotMessage(data.message, true);
+                
+                // Guardar en historial
+                conversationHistory.push(
+                    {role: 'user', content: text},
+                    {role: 'assistant', content: data.message}
+                );
+                
+                if (conversationHistory.length > 20) {
+                    conversationHistory = conversationHistory.slice(-20);
+                }
+                
+                localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
+                
+                // Guardar conversación en backend
+                if (currentUser) {
+                    try {
+                        await fetch('/api/supabase', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                action: 'POST',
+                                table: 'conversations',
+                                data: {
+                                    customer_id: currentUser.id,
+                                    user_message: text,
+                                    bot_response: data.message,
+                                    detected_preferences: JSON.stringify(detectedPreferences)
+                                }
+                            })
+                        });
+                    } catch(err) {
+                        console.log('Info: Conversación guardada localmente');
+                    }
+                }
+                
+            } catch(error) {
+                removeThinkingMessage();
+                addBotMessage('❌ Error: ' + error.message + '. Por favor intenta de nuevo.', false);
+                console.error('Error:', error);
+            }
+        }
+        
+        console.log('🍣 Sushi Bot AI Premium - Versión Segura');
+        console.log('✅ Sin API Keys expuestas');
+        console.log('🔒 Backend protegido en Vercel');
+        console.log('💾 Sistema de memoria activo');
+    </script>
+</body>
+</html>
