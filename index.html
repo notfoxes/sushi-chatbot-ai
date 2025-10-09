@@ -3,147 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍣 Sushi Bot AI - Premium</title>
+    <title>JURELL SUSHI - Asistente AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { font-family: 'Inter', sans-serif; }
-        .font-display { font-family: 'Playfair Display', serif; }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        
         body { 
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
             min-height: 100vh;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        
+        .gold-gradient {
+            background: linear-gradient(135deg, #c9a961 0%, #d4b76f 50%, #b8935c 100%);
         }
-        .chat-bubble { animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .red-gradient {
+            background: linear-gradient(135deg, #d94a4a 0%, #e65555 50%, #c73838 100%);
+        }
+        
+        .glass-dark {
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(201, 169, 97, 0.2);
+        }
+        
+        .glass-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chat-bubble { 
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .ai-thinking {
-            background: linear-gradient(-45deg, #e3f2fd, #bbdefb, #e3f2fd, #bbdefb);
+        
+        .message-user {
+            background: linear-gradient(135deg, #d94a4a 0%, #c73838 100%);
+            box-shadow: 0 4px 20px rgba(217, 74, 74, 0.3);
+        }
+        
+        .message-bot {
+            background: rgba(45, 45, 45, 0.9);
+            border: 1px solid rgba(201, 169, 97, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, #c9a961 0%, #b8935c 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
+        }
+        
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 169, 97, 0.5);
+        }
+        
+        .btn-red {
+            background: linear-gradient(135deg, #d94a4a 0%, #c73838 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(217, 74, 74, 0.3);
+        }
+        
+        .btn-red:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(217, 74, 74, 0.5);
+        }
+        
+        .quick-btn {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(201, 169, 97, 0.3);
+        }
+        
+        .quick-btn:hover {
+            transform: translateY(-3px);
+            border-color: rgba(201, 169, 97, 0.6);
+            box-shadow: 0 6px 20px rgba(201, 169, 97, 0.2);
+        }
+        
+        .featured-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 3px solid #c9a961;
+        }
+        
+        .featured-card:hover {
+            transform: translateX(8px);
+            border-left-width: 5px;
+            box-shadow: -8px 8px 25px rgba(201, 169, 97, 0.15);
+        }
+        
+        .thinking-dots {
+            background: linear-gradient(-45deg, rgba(201, 169, 97, 0.2), rgba(217, 74, 74, 0.2));
             background-size: 400% 400%;
             animation: gradient 2s ease infinite;
         }
+        
         @keyframes gradient {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
-        }
-        .quick-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .quick-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        .featured-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .featured-card:hover {
-            transform: translateX(5px);
-            box-shadow: -5px 5px 20px rgba(102, 126, 234, 0.2);
-        }
-        .message-user {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-        .message-bot {
-            background: white;
-            border: 2px solid #e9ecef;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        .message-ai {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
-        }
+        
         input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #c9a961;
+            box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.2);
         }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(180deg, #c9a961 0%, #b8935c 100%);
             border-radius: 10px;
+        }
+        
+        .logo-container {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .gold-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gold-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .gold-shine:hover::before {
+            left: 100%;
         }
     </style>
 </head>
-<body>
+<body class="text-white">
     
-    <!-- Header -->
-    <header class="bg-white/10 backdrop-blur-lg border-b border-white/20 sticky top-0 z-40 shadow-2xl">
-        <div class="max-w-7xl mx-auto px-6 py-6">
-            <div class="flex justify-between items-center flex-wrap gap-4">
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center text-2xl shadow-lg">
-                        🍣
+    <!-- Header Premium -->
+    <header class="glass-dark border-b border-gold-900/30 sticky top-0 z-50 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-6">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='white'/%3E%3Cpath d='M100 40 Q120 60 140 80 L120 100 Q100 90 80 100 L60 80 Q80 60 100 40Z' fill='%23d94a4a'/%3E%3Cpath d='M40 120 L160 120 M50 110 L150 110 M60 130 L140 130' stroke='%23c9a961' stroke-width='3'/%3E%3C/svg%3E" 
+                             alt="JURELL SUSHI" 
+                             class="w-16 h-16 rounded-full border-2 border-gold-600 shadow-xl">
                     </div>
                     <div>
-                        <h1 class="text-3xl font-bold text-white font-display">Sushi & Cocina Japonesa</h1>
-                        <p class="text-sm text-white/70">Asistente Virtual Premium con IA</p>
+                        <h1 class="text-3xl font-bold tracking-wide font-serif text-white">JURELL SUSHI</h1>
+                        <p class="text-sm text-gold-500">Asistente Virtual Premium con IA</p>
                     </div>
-                    <span class="px-4 py-2 rounded-full text-xs font-semibold bg-green-500/20 text-green-200 border border-green-500/50">
-                        ✅ Seguro
+                    <span class="px-4 py-1.5 rounded-full text-xs font-semibold bg-green-900/30 text-green-400 border border-green-700/50">
+                        ✓ En línea
                     </span>
                 </div>
-                <button id="langBtn" class="bg-white/10 text-white px-5 py-2.5 rounded-xl hover:bg-white/20 transition font-medium backdrop-blur">
-                    🌐 EN
+                <button id="langBtn" class="glass-light text-white px-5 py-2.5 rounded-xl hover:bg-white/10 transition font-medium">
+                    🌐 ES
                 </button>
             </div>
         </div>
     </header>
 
     <!-- Main Container -->
-    <div class="max-w-7xl mx-auto px-6 py-10">
+    <div class="max-w-7xl mx-auto px-6 py-8">
         <div class="grid lg:grid-cols-3 gap-8">
             
             <!-- Chat Section -->
             <div class="lg:col-span-2">
-                <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
+                <div class="glass-dark rounded-3xl shadow-2xl overflow-hidden">
                     
                     <!-- Chat Header -->
-                    <div class="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white p-6">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-2xl backdrop-blur">
+                    <div class="gold-gradient p-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-14 h-14 bg-black/20 rounded-2xl flex items-center justify-center text-3xl backdrop-blur">
                                 🤖
                             </div>
                             <div>
-                                <h2 class="text-2xl font-bold font-display">Asistente Sushi AI</h2>
-                                <p class="text-sm text-white/90">Powered by OpenAI GPT-4o-mini</p>
+                                <h2 class="text-2xl font-bold text-black font-serif">Asistente Sushi AI</h2>
+                                <p class="text-sm text-black/80">Powered by OpenAI GPT-4o-mini</p>
                             </div>
                         </div>
                     </div>
                     
                     <!-- Chat Messages -->
-                    <div id="chatMessages" class="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-white to-purple-50">
-                        <!-- Messages -->
+                    <div id="chatMessages" class="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-black/40 to-black/60">
+                        <!-- Messages aparecerán aquí -->
                     </div>
                     
                     <!-- Quick Actions -->
-                    <div class="p-6 bg-gray-50 border-t-2 border-gray-100">
+                    <div class="p-6 bg-black/40 border-t border-gold-900/30">
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-                            <button onclick="quickMessage('Muéstrame el menú completo')" class="quick-btn bg-gradient-to-br from-purple-500 to-purple-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                            <button onclick="quickMessage('Muéstrame el menú completo')" class="quick-btn glass-light text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-white/10">
                                 🍱 Menú
                             </button>
-                            <button onclick="quickMessage('Dame tus mejores recomendaciones')" class="quick-btn bg-gradient-to-br from-pink-500 to-pink-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                            <button onclick="quickMessage('Dame tus mejores recomendaciones')" class="quick-btn glass-light text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-white/10">
                                 ⭐ Top 3
                             </button>
-                            <button onclick="quickMessage('Opciones sin gluten por favor')" class="quick-btn bg-gradient-to-br from-red-500 to-red-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                            <button onclick="quickMessage('Opciones sin gluten por favor')" class="quick-btn glass-light text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-white/10">
                                 🚫 Alergias
                             </button>
-                            <button onclick="quickMessage('Cuáles son los platillos especiales')" class="quick-btn bg-gradient-to-br from-yellow-500 to-yellow-600 text-white px-4 py-3 rounded-xl text-sm font-semibold shadow-lg">
+                            <button onclick="quickMessage('Cuáles son los platillos especiales')" class="quick-btn glass-light text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-white/10">
                                 🌟 Especiales
                             </button>
                         </div>
@@ -153,11 +229,11 @@
                             <input 
                                 type="text" 
                                 id="chatInput" 
-                                class="flex-1 border-2 border-gray-200 rounded-xl px-5 py-3.5 text-gray-800 placeholder-gray-400 transition" 
+                                class="flex-1 bg-black/50 border-2 border-gold-900/30 rounded-xl px-5 py-3.5 text-white placeholder-gray-500 transition focus:bg-black/70" 
                                 placeholder="Pregunta sobre sushi, ingredientes, alergias..."
                                 onkeypress="if(event.key==='Enter') sendMessage()"
                             >
-                            <button onclick="sendMessage()" class="btn-primary text-white px-8 py-3.5 rounded-xl font-semibold shadow-lg">
+                            <button onclick="sendMessage()" class="btn-gold text-black px-8 py-3.5 rounded-xl font-bold">
                                 <span class="text-lg">➤</span>
                             </button>
                         </div>
@@ -169,23 +245,23 @@
             <div class="space-y-6">
                 
                 <!-- User Profile Card -->
-                <div class="glass-card rounded-2xl shadow-xl p-6">
+                <div class="glass-dark rounded-2xl shadow-xl p-6">
                     <div id="guestView">
                         <div class="text-center mb-4">
-                            <div class="w-16 h-16 bg-gradient-to-br from-gray-400 to-gray-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                            <div class="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center text-3xl mx-auto mb-3 border-2 border-gold-800/30">
                                 👤
                             </div>
-                            <p class="text-gray-600 text-sm mb-1">Modo Invitado</p>
-                            <p class="text-xs text-gray-400">Chatbot listo para usar</p>
+                            <p class="text-gray-300 text-sm mb-1">Modo Invitado</p>
+                            <p class="text-xs text-gray-500">Chatbot listo para usar</p>
                         </div>
                         
-                        <button onclick="showRegister()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:shadow-xl transition transform hover:scale-105">
+                        <button onclick="showRegister()" class="w-full gold-shine btn-gold text-black py-3.5 rounded-xl font-bold hover:shadow-xl transition">
                             ✨ Guardar mis preferencias
                         </button>
                         
-                        <div class="mt-4 p-3 bg-purple-50 rounded-xl">
-                            <p class="text-xs text-purple-700">
-                                <strong>💡 Beneficios:</strong><br>
+                        <div class="mt-4 p-4 glass-light rounded-xl border border-gold-900/20">
+                            <p class="text-xs text-gray-300 leading-relaxed">
+                                <strong class="text-gold-500">💡 Beneficios:</strong><br>
                                 • Recomendaciones personalizadas<br>
                                 • Historial de pedidos<br>
                                 • Detección de alergias
@@ -195,80 +271,80 @@
                     
                     <div id="userView" class="hidden">
                         <div class="text-center mb-4">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                            <div class="w-16 h-16 gold-gradient rounded-full flex items-center justify-center text-3xl mx-auto mb-3 border-2 border-gold-600">
                                 👋
                             </div>
-                            <h3 class="font-bold text-gray-800 text-lg" id="userName">Usuario</h3>
-                            <p class="text-xs text-gray-500" id="userPhone">Teléfono</p>
+                            <h3 class="font-bold text-white text-lg font-serif" id="userName">Usuario</h3>
+                            <p class="text-xs text-gray-400" id="userPhone">Teléfono</p>
                             <div class="flex items-center justify-center space-x-2 mt-2">
-                                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">✓ Registrado</span>
+                                <span class="px-3 py-1 bg-green-900/30 text-green-400 rounded-full text-xs font-semibold border border-green-700/50">✓ Registrado</span>
                             </div>
                         </div>
                         
                         <div class="space-y-3 mb-4">
-                            <div class="flex justify-between items-center p-3 bg-purple-50 rounded-xl">
-                                <span class="text-sm text-gray-700">🍱 Visitas</span>
-                                <span class="font-bold text-purple-600" id="userVisits">1</span>
+                            <div class="flex justify-between items-center p-3 glass-light rounded-xl border border-gold-900/20">
+                                <span class="text-sm text-gray-300">🍱 Visitas</span>
+                                <span class="font-bold text-gold-500" id="userVisits">1</span>
                             </div>
-                            <div class="p-3 bg-pink-50 rounded-xl">
-                                <p class="text-xs text-gray-600 mb-1">⭐ Favorito:</p>
-                                <p class="text-sm font-semibold text-gray-800" id="userFavorite">Aún no tienes</p>
+                            <div class="p-3 glass-light rounded-xl border border-gold-900/20">
+                                <p class="text-xs text-gray-400 mb-1">⭐ Favorito:</p>
+                                <p class="text-sm font-semibold text-white" id="userFavorite">Aún no tienes</p>
                             </div>
                         </div>
                         
-                        <button onclick="logout()" class="w-full bg-gray-200 text-gray-700 py-2.5 rounded-xl font-medium hover:bg-gray-300 transition text-sm">
+                        <button onclick="logout()" class="w-full bg-gray-700 text-gray-200 py-2.5 rounded-xl font-medium hover:bg-gray-600 transition text-sm">
                             🚪 Cerrar sesión
                         </button>
                     </div>
                 </div>
                 
                 <!-- Featured Items -->
-                <div class="glass-card rounded-2xl shadow-xl p-6">
+                <div class="glass-dark rounded-2xl shadow-xl p-6">
                     <div class="flex items-center space-x-2 mb-6">
                         <span class="text-2xl">🌟</span>
-                        <h3 class="text-xl font-bold text-gray-800 font-display">Destacados</h3>
+                        <h3 class="text-xl font-bold text-white font-serif">Destacados</h3>
                     </div>
                     <div class="space-y-4">
-                        <div class="featured-card border-l-4 border-purple-500 pl-4 bg-gradient-to-r from-purple-50 to-transparent p-4 rounded-r-xl">
-                            <h4 class="font-bold text-gray-800 mb-1">Toro Trufa</h4>
-                            <p class="text-xs text-gray-600 mb-2">Atún graso, shiso, aceite de trufa</p>
-                            <p class="text-lg font-bold text-purple-600">$229</p>
+                        <div class="featured-card glass-light pl-4 pr-4 py-4 rounded-xl">
+                            <h4 class="font-bold text-white mb-1 font-serif">Toro Trufa</h4>
+                            <p class="text-xs text-gray-400 mb-2">Atún graso, shiso, aceite de trufa</p>
+                            <p class="text-lg font-bold text-gold-500">$229</p>
                         </div>
-                        <div class="featured-card border-l-4 border-pink-500 pl-4 bg-gradient-to-r from-pink-50 to-transparent p-4 rounded-r-xl">
-                            <h4 class="font-bold text-gray-800 mb-1">Chirashi Bowl</h4>
-                            <p class="text-xs text-gray-600 mb-2">Surtido premium de sashimi</p>
-                            <p class="text-lg font-bold text-pink-600">$229</p>
+                        <div class="featured-card glass-light pl-4 pr-4 py-4 rounded-xl">
+                            <h4 class="font-bold text-white mb-1 font-serif">Chirashi Bowl</h4>
+                            <p class="text-xs text-gray-400 mb-2">Surtido premium de sashimi</p>
+                            <p class="text-lg font-bold text-gold-500">$229</p>
                         </div>
-                        <div class="featured-card border-l-4 border-red-500 pl-4 bg-gradient-to-r from-red-50 to-transparent p-4 rounded-r-xl">
-                            <h4 class="font-bold text-gray-800 mb-1">Roll Volcán</h4>
-                            <p class="text-xs text-gray-600 mb-2">Cangrejo, masago, picante</p>
-                            <p class="text-lg font-bold text-red-600">$199</p>
+                        <div class="featured-card glass-light pl-4 pr-4 py-4 rounded-xl">
+                            <h4 class="font-bold text-white mb-1 font-serif">Roll Volcán</h4>
+                            <p class="text-xs text-gray-400 mb-2">Cangrejo, masago, picante</p>
+                            <p class="text-lg font-bold text-red-500">$199</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Info Card -->
-                <div class="rounded-2xl shadow-xl p-6 bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 text-white">
-                    <h3 class="text-xl font-bold mb-4 font-display">💡 Puedo ayudarte con:</h3>
+                <div class="rounded-2xl shadow-xl p-6 red-gradient text-white">
+                    <h3 class="text-xl font-bold mb-4 font-serif">💡 Puedo ayudarte con:</h3>
                     <ul class="space-y-2.5 text-sm">
                         <li class="flex items-start space-x-2">
-                            <span class="text-yellow-300">✓</span>
+                            <span class="text-gold-300">✓</span>
                             <span>Explicar platillos e ingredientes</span>
                         </li>
                         <li class="flex items-start space-x-2">
-                            <span class="text-yellow-300">✓</span>
+                            <span class="text-gold-300">✓</span>
                             <span>Opciones sin gluten/veganas</span>
                         </li>
                         <li class="flex items-start space-x-2">
-                            <span class="text-yellow-300">✓</span>
+                            <span class="text-gold-300">✓</span>
                             <span>Identificar alérgenos</span>
                         </li>
                         <li class="flex items-start space-x-2">
-                            <span class="text-yellow-300">✓</span>
+                            <span class="text-gold-300">✓</span>
                             <span>Ajustar nivel de picante</span>
                         </li>
                         <li class="flex items-start space-x-2">
-                            <span class="text-yellow-300">✓</span>
+                            <span class="text-gold-300">✓</span>
                             <span>Recomendaciones personalizadas</span>
                         </li>
                     </ul>
@@ -279,45 +355,45 @@
     </div>
 
     <!-- Register Modal -->
-    <div id="registerModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-        <div class="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl">
+    <div id="registerModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50">
+        <div class="glass-dark border-2 border-gold-900/30 rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl">
             <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <div class="w-16 h-16 gold-gradient rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
                     ✨
                 </div>
-                <h3 class="text-2xl font-bold mb-2 font-display">¡Solo 2 datos!</h3>
-                <p class="text-sm text-gray-600">Para personalizar tu experiencia</p>
+                <h3 class="text-2xl font-bold mb-2 font-serif text-white">¡Solo 2 datos!</h3>
+                <p class="text-sm text-gray-400">Para personalizar tu experiencia</p>
             </div>
             
             <form id="registerForm" onsubmit="handleRegister(event)">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-semibold mb-2">¿Cómo te llamamos? *</label>
-                        <input type="text" id="regName" required class="w-full border-2 rounded-xl px-4 py-3" placeholder="Ej: Ana, Carlos">
+                        <label class="block text-sm font-semibold mb-2 text-gray-300">¿Cómo te llamamos? *</label>
+                        <input type="text" id="regName" required class="w-full bg-black/50 border-2 border-gold-900/30 rounded-xl px-4 py-3 text-white focus:bg-black/70" placeholder="Ej: Ana, Carlos">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold mb-2">Tu número (WhatsApp) *</label>
-                        <input type="tel" id="regPhone" required class="w-full border-2 rounded-xl px-4 py-3" placeholder="33 1234 5678">
+                        <label class="block text-sm font-semibold mb-2 text-gray-300">Tu número (WhatsApp) *</label>
+                        <input type="tel" id="regPhone" required class="w-full bg-black/50 border-2 border-gold-900/30 rounded-xl px-4 py-3 text-white focus:bg-black/70" placeholder="33 1234 5678">
                         <p class="text-xs text-gray-500 mt-1">Para confirmaciones y ofertas especiales</p>
                     </div>
                     <div id="emailSection" class="hidden">
-                        <label class="block text-sm font-semibold mb-2">Email (opcional)</label>
-                        <input type="email" id="regEmail" class="w-full border-2 rounded-xl px-4 py-3" placeholder="tu@email.com">
+                        <label class="block text-sm font-semibold mb-2 text-gray-300">Email (opcional)</label>
+                        <input type="email" id="regEmail" class="w-full bg-black/50 border-2 border-gold-900/30 rounded-xl px-4 py-3 text-white focus:bg-black/70" placeholder="tu@email.com">
                     </div>
-                    <button type="button" onclick="toggleEmail()" class="text-xs text-purple-600 hover:text-purple-700 font-medium">
+                    <button type="button" onclick="toggleEmail()" class="text-xs text-gold-500 hover:text-gold-400 font-medium">
                         + Agregar email (opcional)
                     </button>
-                    <div class="p-3 bg-green-50 border border-green-200 rounded-xl">
-                        <p class="text-xs text-green-800">
+                    <div class="p-3 bg-green-900/20 border border-green-700/30 rounded-xl">
+                        <p class="text-xs text-green-400">
                             🔒 Tus datos están seguros y protegidos.
                         </p>
                     </div>
                 </div>
                 <div class="flex space-x-3 pt-4">
-                    <button type="button" onclick="hideRegister()" class="flex-1 bg-gray-100 py-3 rounded-xl font-semibold hover:bg-gray-200">
+                    <button type="button" onclick="hideRegister()" class="flex-1 bg-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-600 text-white">
                         Después
                     </button>
-                    <button type="submit" class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-xl font-semibold hover:shadow-xl transition">
+                    <button type="submit" class="flex-1 btn-gold text-black py-3 rounded-xl font-bold hover:shadow-xl transition">
                         ¡Listo! 🎉
                     </button>
                 </div>
@@ -329,7 +405,6 @@
     </div>
 
     <script>
-        // ✅ SIN API KEYS - Todo se maneja en el backend
         let currentUser = null;
         let conversationHistory = [];
         let detectedPreferences = {
@@ -370,15 +445,15 @@
         
         // Mensaje inicial
         setTimeout(() => {
-            const greeting = currentUser ? `¡Hola de nuevo, <strong>${currentUser.name}</strong>!` : '¡Konnichiwa!';
+            const greeting = currentUser ? `¡Bienvenido de nuevo, <strong>${currentUser.name}</strong>!` : '¡Konnichiwa!';
             addBotMessage(`
                 <div class="flex items-start space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-xl">🍣</div>
+                    <div class="w-10 h-10 rounded-xl gold-gradient flex items-center justify-center text-xl">🍣</div>
                     <div>
-                        <strong class="text-lg">${greeting}</strong> Soy tu asistente de sushi con IA<br><br>
-                        ${currentUser ? `<div class="p-2 bg-purple-50 rounded-lg mb-2 text-sm"><strong>👤 Tu perfil:</strong><br>• Visitas: ${currentUser.visits}<br></div>` : ''}
-                        <strong>🎯 Servicios:</strong> Menú, recomendaciones, alergias, ingredientes<br><br>
-                        <strong class="text-purple-600">¡Usa los botones o pregúntame lo que quieras!</strong>
+                        <strong class="text-lg text-gold-500">${greeting}</strong> Soy tu asistente de JURELL SUSHI con IA<br><br>
+                        ${currentUser ? `<div class="p-2 glass-light rounded-lg mb-2 text-sm border border-gold-900/20"><strong class="text-gold-500">👤 Tu perfil:</strong><br>• Visitas: ${currentUser.visits}<br></div>` : ''}
+                        <strong class="text-gold-500">🎯 Servicios:</strong> Menú, recomendaciones, alergias, ingredientes<br><br>
+                        <strong class="text-gold-400">¡Usa los botones o pregúntame lo que quieras!</strong>
                     </div>
                 </div>
             `, false);
@@ -439,37 +514,16 @@
             
             localStorage.setItem('sushiUser', JSON.stringify(currentUser));
             
-            // Guardar en backend (Supabase)
-            try {
-                await fetch('/api/supabase', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        action: 'POST',
-                        table: 'customers',
-                        data: {
-                            phone: currentUser.phone,
-                            name: currentUser.name,
-                            email: currentUser.email,
-                            total_visits: 1,
-                            preferences: JSON.stringify(currentUser.preferences)
-                        }
-                    })
-                });
-            } catch(error) {
-                console.log('Info: Usuario guardado localmente');
-            }
-            
             updateUserUI();
             hideRegister();
             
             addBotMessage(`
-                <strong>🎉 ¡Perfecto, ${name}!</strong><br><br>
+                <strong class="text-gold-500">🎉 ¡Perfecto, ${name}!</strong><br><br>
                 Ya estás registrado. Ahora puedo:<br>
                 • Recordar tus preferencias y alergias<br>
                 • Hacer recomendaciones personalizadas<br>
                 • Guardar tu historial de pedidos<br><br>
-                <em>¿Qué te gustaría ordenar hoy?</em>
+                <em class="text-gray-400">¿Qué te gustaría ordenar hoy?</em>
             `, false);
             
             document.getElementById('registerForm').reset();
@@ -502,7 +556,7 @@
             const container = document.getElementById('chatMessages');
             const div = document.createElement('div');
             div.className = 'flex justify-end chat-bubble';
-            div.innerHTML = `<div class="message-user text-white rounded-2xl px-5 py-3 max-w-md">${text}</div>`;
+            div.innerHTML = `<div class="message-user text-white rounded-2xl px-5 py-3 max-w-md shadow-lg">${text}</div>`;
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
@@ -512,10 +566,9 @@
             const div = document.createElement('div');
             div.className = 'flex justify-start chat-bubble';
             
-            const messageClass = isAI ? 'message-ai text-white' : 'message-bot text-gray-800';
-            const aiTag = isAI ? '<div class="flex items-center space-x-1 mb-2"><span class="text-xs opacity-90">🤖 AI</span></div>' : '';
+            const aiTag = isAI ? '<div class="flex items-center space-x-1 mb-2"><span class="text-xs text-gold-500">🤖 AI</span></div>' : '';
             
-            div.innerHTML = `<div class="${messageClass} rounded-2xl px-5 py-3 max-w-md">${aiTag}${text}</div>`;
+            div.innerHTML = `<div class="message-bot text-white rounded-2xl px-5 py-3 max-w-md">${aiTag}${text}</div>`;
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
@@ -526,11 +579,11 @@
             div.id = 'thinking-message';
             div.className = 'flex justify-start chat-bubble';
             div.innerHTML = `
-                <div class="ai-thinking text-gray-700 rounded-2xl px-5 py-3 max-w-md shadow-lg">
+                <div class="thinking-dots text-gray-300 rounded-2xl px-5 py-3 max-w-md border border-gold-900/20">
                     <div class="flex items-center space-x-2">
-                        <div class="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
-                        <div class="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                        <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                        <div class="w-2 h-2 bg-gold-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                        <div class="w-2 h-2 bg-gold-600 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
                         <span class="ml-2">Pensando...</span>
                     </div>
                 </div>
@@ -597,7 +650,6 @@
             addThinkingMessage();
             
             try {
-                // ✅ Llamar al backend seguro (sin exponer API keys)
                 let userContext = '';
                 
                 if (currentUser) {
@@ -616,13 +668,12 @@
                     userContext += '\n🌶️ Nivel de picante preferido: ' + detectedPreferences.spicyLevel + '\n';
                 }
                 
-                // Construir mensajes
                 const messages = [];
                 const recentHistory = conversationHistory.slice(-10);
                 messages.push(...recentHistory);
                 messages.push({role: 'user', content: text});
                 
-                // Llamar al backend
+                // Llamar al backend (debes crear este endpoint)
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: {
@@ -643,7 +694,6 @@
                 removeThinkingMessage();
                 addBotMessage(data.message, true);
                 
-                // Guardar en historial
                 conversationHistory.push(
                     {role: 'user', content: text},
                     {role: 'assistant', content: data.message}
@@ -655,39 +705,17 @@
                 
                 localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
                 
-                // Guardar conversación en backend
-                if (currentUser) {
-                    try {
-                        await fetch('/api/supabase', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({
-                                action: 'POST',
-                                table: 'conversations',
-                                data: {
-                                    customer_id: currentUser.id,
-                                    user_message: text,
-                                    bot_response: data.message,
-                                    detected_preferences: JSON.stringify(detectedPreferences)
-                                }
-                            })
-                        });
-                    } catch(err) {
-                        console.log('Info: Conversación guardada localmente');
-                    }
-                }
-                
             } catch(error) {
                 removeThinkingMessage();
-                addBotMessage('❌ Error: ' + error.message + '. Por favor intenta de nuevo.', false);
+                addBotMessage('⚠️ Error de conexión. Asegúrate de que el backend esté configurado. Mensaje: ' + error.message, false);
                 console.error('Error:', error);
             }
         }
         
-        console.log('🍣 Sushi Bot AI Premium - Versión Segura');
-        console.log('✅ Sin API Keys expuestas');
+        console.log('🍣 JURELL SUSHI - Chatbot AI Premium');
+        console.log('✅ Diseño personalizado con paleta del logo');
+        console.log('🎨 Negro/Dorado/Rojo coral');
         console.log('🔒 Backend protegido en Vercel');
-        console.log('💾 Sistema de memoria activo');
     </script>
 </body>
 </html>
