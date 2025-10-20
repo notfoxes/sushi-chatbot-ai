@@ -1,24 +1,3 @@
 {
-  "name": "jurell-sushi-chatbot",
-  "version": "1.0.0",
-  "description": "Chatbot AI para JURELL SUSHI con menú interactivo",
-  "type": "module",
-  "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'Static site - no build needed'",
-    "deploy": "vercel --prod"
-  },
-  "keywords": [
-    "chatbot",
-    "sushi",
-    "ai",
-    "openai",
-    "restaurant"
-  ],
-  "author": "JURELL SUSHI",
-  "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {
-    "vercel": "^33.0.0"
-  }
+  "type": "module"
 }
