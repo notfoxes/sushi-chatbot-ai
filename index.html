@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JURELL SUSHI - Asistente AI</title>
+    <title>Tercetto Espresso Bar - Asistente AI</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/ball-point" rel="stylesheet">
     <style>
         * { font-family: 'Inter', sans-serif; }
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .font-ballpoint { font-family: 'Ball Point', cursive; }
         
         body { 
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+            background: linear-gradient(135deg, #375440 0%, #2a4032 50%, #1f3026 100%);
             min-height: 100vh;
         }
         
-        .gold-gradient {
-            background: linear-gradient(135deg, #c9a961 0%, #d4b76f 50%, #b8935c 100%);
+        .cream-gradient {
+            background: linear-gradient(135deg, #D3D9BF 0%, #e8edd8 50%, #c5cdb0 100%);
         }
         
-        .red-gradient {
-            background: linear-gradient(135deg, #d94a4a 0%, #e65555 50%, #c73838 100%);
+        .green-gradient {
+            background: linear-gradient(135deg, #375440 0%, #2a4032 100%);
         }
         
         .glass-dark {
-            background: rgba(30, 30, 30, 0.85);
+            background: rgba(55, 84, 64, 0.85);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(201, 169, 97, 0.2);
+            border: 1px solid rgba(211, 217, 191, 0.2);
         }
         
         .glass-light {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(211, 217, 191, 0.1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(211, 217, 191, 0.2);
         }
         
         .chat-bubble { 
@@ -45,62 +47,53 @@
         }
         
         .message-user {
-            background: linear-gradient(135deg, #d94a4a 0%, #c73838 100%);
-            box-shadow: 0 4px 20px rgba(217, 74, 74, 0.3);
+            background: linear-gradient(135deg, #375440 0%, #2a4032 100%);
+            box-shadow: 0 4px 20px rgba(55, 84, 64, 0.3);
         }
         
         .message-bot {
-            background: rgba(45, 45, 45, 0.9);
-            border: 1px solid rgba(201, 169, 97, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            background: rgba(211, 217, 191, 0.95);
+            border: 1px solid rgba(55, 84, 64, 0.2);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: #1f3026;
         }
         
-        .btn-gold {
-            background: linear-gradient(135deg, #c9a961 0%, #b8935c 100%);
+        .btn-cream {
+            background: linear-gradient(135deg, #D3D9BF 0%, #c5cdb0 100%);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
+            box-shadow: 0 4px 15px rgba(211, 217, 191, 0.3);
+            color: #1f3026;
         }
         
-        .btn-gold:hover {
+        .btn-cream:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(201, 169, 97, 0.5);
+            box-shadow: 0 8px 25px rgba(211, 217, 191, 0.5);
         }
         
-        .btn-red {
-            background: linear-gradient(135deg, #d94a4a 0%, #c73838 100%);
+        .btn-green {
+            background: linear-gradient(135deg, #375440 0%, #2a4032 100%);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(217, 74, 74, 0.3);
+            box-shadow: 0 4px 15px rgba(55, 84, 64, 0.3);
         }
         
-        .btn-red:hover {
+        .btn-green:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(217, 74, 74, 0.5);
+            box-shadow: 0 8px 25px rgba(55, 84, 64, 0.5);
         }
         
         .quick-btn {
             transition: all 0.3s ease;
-            border: 1px solid rgba(201, 169, 97, 0.3);
+            border: 1px solid rgba(211, 217, 191, 0.3);
         }
         
         .quick-btn:hover {
             transform: translateY(-3px);
-            border-color: rgba(201, 169, 97, 0.6);
-            box-shadow: 0 6px 20px rgba(201, 169, 97, 0.2);
-        }
-        
-        .featured-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-left: 3px solid #c9a961;
-        }
-        
-        .featured-card:hover {
-            transform: translateX(8px);
-            border-left-width: 5px;
-            box-shadow: -8px 8px 25px rgba(201, 169, 97, 0.15);
+            border-color: rgba(211, 217, 191, 0.6);
+            box-shadow: 0 6px 20px rgba(211, 217, 191, 0.2);
         }
         
         .thinking-dots {
-            background: linear-gradient(-45deg, rgba(201, 169, 97, 0.2), rgba(217, 74, 74, 0.2));
+            background: linear-gradient(-45deg, rgba(211, 217, 191, 0.2), rgba(55, 84, 64, 0.2));
             background-size: 400% 400%;
             animation: gradient 2s ease infinite;
         }
@@ -112,72 +105,15 @@
         
         input:focus {
             outline: none;
-            border-color: #c9a961;
-            box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.2);
+            border-color: #FDB713;
+            box-shadow: 0 0 0 3px rgba(211, 217, 191, 0.2);
         }
         
         ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-track { background: #1f3026; }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #c9a961 0%, #b8935c 100%);
+            background: linear-gradient(180deg, #D3D9BF 0%, #c5cdb0 100%);
             border-radius: 10px;
-        }
-        
-        .logo-container {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .gold-shine {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .gold-shine::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .gold-shine:hover::before {
-            left: 100%;
-        }
-        
-        .menu-category {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .menu-category:hover {
-            background: rgba(201, 169, 97, 0.1);
-            border-left-color: #c9a961;
-        }
-        
-        .menu-item {
-            transition: all 0.3s ease;
-        }
-        
-        .menu-item:hover {
-            background: rgba(255, 255, 255, 0.03);
-            transform: translateX(5px);
-        }
-        
-        .modal-enter {
-            animation: modalEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        @keyframes modalEnter {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
         }
         
         .modal-backdrop {
@@ -201,7 +137,7 @@
         .menu-header-sticky {
             position: relative;
             z-index: 110;
-            background: rgba(30, 30, 30, 0.98);
+            background: rgba(55, 84, 64, 0.98);
             backdrop-filter: blur(20px);
             flex-shrink: 0;
         }
@@ -212,495 +148,741 @@
             overflow-x: hidden;
         }
         
-        .spicy-icon { color: #d94a4a; }
-        .vegan-icon { color: #4ade80; }
-        .gf-icon { color: #c9a961; }
+        .star-rating {
+            display: inline-flex;
+            gap: 0.25rem;
+        }
+        
+        .star {
+            cursor: pointer;
+            color: #c5cdb0;
+            transition: color 0.2s;
+            font-size: 1.5rem;
+        }
+        
+        .star:hover,
+        .star.active {
+            color: #FDB713;
+        }
+        
+        .welcome-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .welcome-card {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body class="text-white">
     
-    <!-- Header Premium -->
-    <header class="glass-dark border-b border-gold-900/30 sticky top-0 z-50 shadow-2xl">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-6">
-                    <div class="logo-container">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='white'/%3E%3Cpath d='M100 40 Q120 60 140 80 L120 100 Q100 90 80 100 L60 80 Q80 60 100 40Z' fill='%23d94a4a'/%3E%3Cpath d='M40 120 L160 120 M50 110 L150 110 M60 130 L140 130' stroke='%23c9a961' stroke-width='3'/%3E%3C/svg%3E" 
-                             alt="JURELL SUSHI" 
-                             class="w-16 h-16 rounded-full border-2 border-gold-600 shadow-xl">
-                    </div>
-                    <div>
-                        <h1 class="text-3xl font-bold tracking-wide font-serif text-white">JURELL SUSHI</h1>
-                        <p class="text-sm text-gold-500">Asistente Virtual Premium con IA</p>
-                    </div>
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="welcome-card glass-dark rounded-3xl shadow-2xl p-8 md:p-12 max-w-2xl w-full mx-4">
+            <div class="text-center mb-8">
+                <!-- Logo de Tercetto -->
+                <div class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-cream-500 shadow-xl bg-white flex items-center justify-center p-0">
+                    <img src="/tercetto.png" 
+                         alt="TERCETTO" 
+                         class="w-full h-full object-cover"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='☕'">
                 </div>
-                <div class="flex items-center space-x-3">
-                    <button onclick="openMenu()" class="btn-gold text-black px-6 py-2.5 rounded-xl font-bold hover:shadow-xl transition">
-                        📖 Ver Menú
-                    </button>
-                    <button id="langBtn" class="glass-light text-white px-5 py-2.5 rounded-xl hover:bg-white/10 transition font-medium">
-                        🌐 ES
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <div class="max-w-7xl mx-auto px-6 py-8">
-        <div class="grid lg:grid-cols-3 gap-8">
-            
-            <!-- Chat Section -->
-            <div class="lg:col-span-2">
-                <div class="glass-dark rounded-3xl shadow-2xl overflow-hidden">
-                    
-                    <!-- Chat Header -->
-                    <div class="gold-gradient p-6">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-14 h-14 bg-black/20 rounded-2xl flex items-center justify-center text-3xl backdrop-blur">
-                                🤖
-                            </div>
-                            <div>
-                                <h2 class="text-2xl font-bold text-black font-serif">Asistente Sushi AI</h2>
-                                <p class="text-sm text-black/80">Experto en cocina japonesa</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Chat Messages -->
-                    <div id="chatMessages" class="h-[500px] overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-black/40 to-black/60">
-                    </div>
-                    
-                    <!-- Quick Actions -->
-                    <div class="p-6 bg-black/40 border-t border-gold-900/30">
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-                            <button onclick="openMenu()" class="quick-btn glass-light text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-white/10">
-                                🍱 Menú
-                            </button>
-                            <button onclick="quickMessage('Dame tu top 3 de platillos más populares')" class="quick-btn glass-light text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-white/10">
-                                ⭐ Top 3
-                            </button>
-                            <button onclick="quickMessage('Opciones sin gluten por favor')" class="quick-btn glass-light text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-white/10">
-                                🚫 Alergias
-                            </button>
-                            <button onclick="quickMessage('Cuáles son los platillos especiales')" class="quick-btn glass-light text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-white/10">
-                                🌟 Especiales
-                            </button>
-                        </div>
-                        
-                        <!-- Chat Input -->
-                        <div class="flex space-x-3">
-                            <input 
-                                type="text" 
-                                id="chatInput" 
-                                class="flex-1 bg-black/50 border-2 border-gold-900/30 rounded-xl px-5 py-3.5 text-white placeholder-gray-500 transition focus:bg-black/70" 
-                                placeholder="Pregunta sobre sushi, ingredientes, alergias..."
-                                onkeypress="if(event.key==='Enter') sendMessage()"
-                            >
-                            <button onclick="sendMessage()" class="btn-gold text-black px-8 py-3.5 rounded-xl font-bold">
-                                <span class="text-lg">➤</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="text-5xl md:text-6xl font-bold text-cream-100 font-ballpoint mb-2">TERCETTO</h1>
+                <p class="text-2xl md:text-3xl text-cream-200 font-ballpoint">Espresso Bar</p>
+                <p class="text-sm text-cream-300 mt-4">Tu asistente virtual de café con IA</p>
             </div>
             
-            <!-- Sidebar -->
-            <div class="space-y-6">
-                
-                <!-- User Profile Card -->
-                <div class="glass-dark rounded-2xl shadow-xl p-6">
-                    <div id="guestView">
-                        <div class="text-center mb-4">
-                            <div class="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center text-3xl mx-auto mb-3 border-2 border-gold-800/30">
-                                👤
-                            </div>
-                            <p class="text-gray-300 text-sm mb-1">Modo Invitado</p>
-                            <p class="text-xs text-gray-500">Chatbot listo para usar</p>
-                        </div>
-                        
-                        <button onclick="showRegister()" class="w-full gold-shine btn-gold text-black py-3.5 rounded-xl font-bold hover:shadow-xl transition">
-                            ✨ Guardar mis preferencias
-                        </button>
-                        
-                        <div class="mt-4 p-4 glass-light rounded-xl border border-gold-900/20">
-                            <p class="text-xs text-gray-300 leading-relaxed">
-                                <strong class="text-gold-500">💡 Beneficios:</strong><br>
-                                • Recomendaciones personalizadas<br>
-                                • Historial de pedidos<br>
-                                • Detección de alergias
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div id="userView" class="hidden">
-                        <div class="text-center mb-4">
-                            <div class="w-16 h-16 gold-gradient rounded-full flex items-center justify-center text-3xl mx-auto mb-3 border-2 border-gold-600">
-                                👋
-                            </div>
-                            <h3 class="font-bold text-white text-lg font-serif" id="userName">Usuario</h3>
-                            <p class="text-xs text-gray-400" id="userPhone">Teléfono</p>
-                            <div class="flex items-center justify-center space-x-2 mt-2">
-                                <span class="px-3 py-1 bg-green-900/30 text-green-400 rounded-full text-xs font-semibold border border-green-700/50">✓ Registrado</span>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-3 mb-4">
-                            <div class="flex justify-between items-center p-3 glass-light rounded-xl border border-gold-900/20">
-                                <span class="text-sm text-gray-300">🍱 Visitas</span>
-                                <span class="font-bold text-gold-500" id="userVisits">1</span>
-                            </div>
-                            <div class="p-3 glass-light rounded-xl border border-gold-900/20">
-                                <p class="text-xs text-gray-400 mb-1">⭐ Favorito:</p>
-                                <p class="text-sm font-semibold text-white" id="userFavorite">Aún no tienes</p>
-                            </div>
-                        </div>
-                        
-                        <button onclick="logout()" class="w-full bg-gray-700 text-gray-200 py-2.5 rounded-xl font-medium hover:bg-gray-600 transition text-sm">
-                            🚪 Cerrar sesión
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Featured Items -->
-                <div class="glass-dark rounded-2xl shadow-xl p-6">
-                    <div class="flex items-center space-x-2 mb-6">
-                        <span class="text-2xl">🌟</span>
-                        <h3 class="text-xl font-bold text-white font-serif">Destacados</h3>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="featured-card glass-light pl-4 pr-4 py-4 rounded-xl cursor-pointer" onclick="quickMessage('Cuéntame sobre el Toro Trufa')">
-                            <h4 class="font-bold text-white mb-1 font-serif">Toro Trufa</h4>
-                            <p class="text-xs text-gray-400 mb-2">Atún graso, shiso, aceite de trufa</p>
-                            <p class="text-lg font-bold text-gold-500">$229</p>
-                        </div>
-                        <div class="featured-card glass-light pl-4 pr-4 py-4 rounded-xl cursor-pointer" onclick="quickMessage('Cuéntame sobre el Chirashi Bowl')">
-                            <h4 class="font-bold text-white mb-1 font-serif">Chirashi Bowl</h4>
-                            <p class="text-xs text-gray-400 mb-2">Surtido premium de sashimi</p>
-                            <p class="text-lg font-bold text-gold-500">$229</p>
-                        </div>
-                        <div class="featured-card glass-light pl-4 pr-4 py-4 rounded-xl cursor-pointer" onclick="quickMessage('Cuéntame sobre el Roll Volcán')">
-                            <h4 class="font-bold text-white mb-1 font-serif">Roll Volcán 🌶️</h4>
-                            <p class="text-xs text-gray-400 mb-2">Cangrejo, masago, picante</p>
-                            <p class="text-lg font-bold text-red-500">$199</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Info Card -->
-                <div class="rounded-2xl shadow-xl p-6 red-gradient text-white">
-                    <h3 class="text-xl font-bold mb-4 font-serif">💡 Puedo ayudarte con:</h3>
-                    <ul class="space-y-2.5 text-sm">
-                        <li class="flex items-start space-x-2">
-                            <span class="text-gold-300">✓</span>
-                            <span>Explicar platillos e ingredientes</span>
-                        </li>
-                        <li class="flex items-start space-x-2">
-                            <span class="text-gold-300">✓</span>
-                            <span>Opciones sin gluten/veganas</span>
-                        </li>
-                        <li class="flex items-start space-x-2">
-                            <span class="text-gold-300">✓</span>
-                            <span>Identificar alérgenos</span>
-                        </li>
-                        <li class="flex items-start space-x-2">
-                            <span class="text-gold-300">✓</span>
-                            <span>Ajustar nivel de picante</span>
-                        </li>
-                        <li class="flex items-start space-x-2">
-                            <span class="text-gold-300">✓</span>
-                            <span>Recomendaciones personalizadas</span>
-                        </li>
-                    </ul>
-                </div>
-
+            <div class="space-y-4 mb-6">
+                <button onclick="showLogin()" class="w-full btn-cream text-green-900 py-4 rounded-xl font-bold text-lg hover:shadow-xl transition">
+                    🔑 Iniciar Sesión
+                </button>
+                <button onclick="showRegister()" class="w-full btn-green text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl transition">
+                    ✨ Crear Cuenta
+                </button>
+                <button onclick="continueAsGuest()" class="w-full glass-light text-cream-100 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition border border-cream-500/30">
+                    👤 Continuar como Invitado
+                </button>
+            </div>
+            
+            <div class="text-center text-cream-400 text-xs">
+                <p>🔒 Tu información está protegida</p>
             </div>
         </div>
     </div>
 
-    <!-- Menu Modal (Carta Digital) -->
-    <div id="menuModal" class="hidden modal-backdrop" onclick="closeMenuBackdrop(event)">
-        <div class="modal-container">
-            <!-- Header de la Carta (FIJO) -->
-            <div class="menu-header-sticky glass-dark border-b-2 border-gold-900/30 shadow-2xl">
-                <div class="max-w-5xl mx-auto p-6 md:p-8">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 md:w-16 md:h-16 gold-gradient rounded-2xl flex items-center justify-center text-2xl md:text-3xl shadow-lg">
-                                📖
-                            </div>
-                            <div>
-                                <h2 class="text-2xl md:text-4xl font-bold text-white font-serif">Menú Digital</h2>
-                                <p class="text-gold-500 text-xs md:text-sm">JURELL SUSHI - Cocina Japonesa</p>
-                            </div>
-                        </div>
-                        <button onclick="closeMenu()" class="w-10 h-10 md:w-12 md:h-12 bg-red-600/20 hover:bg-red-600 rounded-xl flex items-center justify-center transition text-xl md:text-2xl font-bold text-white hover:scale-110">
-                            ✕
-                        </button>
-                    </div>
-                    
-                    <!-- Leyenda -->
-                    <div class="mt-4 md:mt-6 flex flex-wrap gap-2 md:gap-4 text-xs">
-                        <span class="px-3 py-1 bg-green-900/20 border border-green-700/40 rounded-full text-green-400">🌱 (V) Vegano</span>
-                        <span class="px-3 py-1 bg-green-900/20 border border-green-700/40 rounded-full text-green-400">🥬 (VG) Vegetariano</span>
-                        <span class="px-3 py-1 bg-gold-900/20 border border-gold-700/40 rounded-full text-gold-400">🌾 (GF) Sin Gluten</span>
-                        <span class="px-3 py-1 bg-red-900/20 border border-red-700/40 rounded-full text-red-400">🌶️ Picante</span>
-                    </div>
-                </div>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-backdrop hidden items-center justify-center">
+        <div class="glass-dark rounded-3xl shadow-2xl p-8 max-w-md w-full mx-4 relative">
+            <button onclick="hideLogin()" class="absolute top-4 right-4 text-cream-300 hover:text-white text-2xl">&times;</button>
+            
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold text-cream-100 mb-2">Iniciar Sesión</h2>
+                <p class="text-cream-400 text-sm">Bienvenido de nuevo ☕</p>
             </div>
-
-            <!-- Contenido del Menú (SCROLLEABLE) -->
-            <div class="menu-content-scroll">
-                <div id="menuContent" class="max-w-5xl mx-auto glass-dark p-6 md:p-8 space-y-6">
-                    <!-- Se llenará dinámicamente con JavaScript -->
-                </div>
+            
+            <div class="space-y-4">
+                <input type="email" id="loginEmail" placeholder="Correo electrónico" 
+                       class="w-full px-4 py-3 rounded-xl bg-white/10 border border-cream-500/30 text-white placeholder-cream-400">
+                
+                <button onclick="loginUser()" class="w-full btn-cream text-green-900 py-3 rounded-xl font-bold hover:shadow-xl transition">
+                    Entrar
+                </button>
+                
+                <p class="text-center text-cream-400 text-sm">
+                    ¿No tienes cuenta? <button onclick="hideLogin(); showRegister();" class="text-cream-200 hover:text-white font-semibold">Regístrate</button>
+                </p>
             </div>
         </div>
     </div>
 
     <!-- Register Modal -->
-    <div id="registerModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50">
-        <div class="glass-dark border-2 border-gold-900/30 rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl modal-enter">
+    <div id="registerModal" class="modal-backdrop hidden items-center justify-center">
+        <div class="glass-dark rounded-3xl shadow-2xl p-8 max-w-md w-full mx-4 relative">
+            <button onclick="hideRegister()" class="absolute top-4 right-4 text-cream-300 hover:text-white text-2xl">&times;</button>
+            
             <div class="text-center mb-6">
-                <div class="w-16 h-16 gold-gradient rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
-                    ✨
-                </div>
-                <h3 class="text-2xl font-bold mb-2 font-serif text-white">¡Solo 2 datos!</h3>
-                <p class="text-sm text-gray-400">Para personalizar tu experiencia</p>
+                <h2 class="text-3xl font-bold text-cream-100 mb-2">Crear Cuenta</h2>
+                <p class="text-cream-400 text-sm">Únete a la familia Tercetto ☕</p>
             </div>
             
-            <form id="registerForm" onsubmit="handleRegister(event)">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-semibold mb-2 text-gray-300">¿Cómo te llamamos? *</label>
-                        <input type="text" id="regName" required class="w-full bg-black/50 border-2 border-gold-900/30 rounded-xl px-4 py-3 text-white focus:bg-black/70" placeholder="Ej: Ana, Carlos">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-2 text-gray-300">Tu número (WhatsApp) *</label>
-                        <input type="tel" id="regPhone" required class="w-full bg-black/50 border-2 border-gold-900/30 rounded-xl px-4 py-3 text-white focus:bg-black/70" placeholder="33 1234 5678">
-                        <p class="text-xs text-gray-500 mt-1">Para confirmaciones y ofertas especiales</p>
-                    </div>
-                    <div id="emailSection" class="hidden">
-                        <label class="block text-sm font-semibold mb-2 text-gray-300">Email (opcional)</label>
-                        <input type="email" id="regEmail" class="w-full bg-black/50 border-2 border-gold-900/30 rounded-xl px-4 py-3 text-white focus:bg-black/70" placeholder="tu@email.com">
-                    </div>
-                    <button type="button" onclick="toggleEmail()" class="text-xs text-gold-500 hover:text-gold-400 font-medium">
-                        + Agregar email (opcional)
-                    </button>
-                    <div class="p-3 bg-green-900/20 border border-green-700/30 rounded-xl">
-                        <p class="text-xs text-green-400">
-                            🔒 Tus datos están seguros y protegidos.
-                        </p>
-                    </div>
-                </div>
-                <div class="flex space-x-3 pt-4">
-                    <button type="button" onclick="hideRegister()" class="flex-1 bg-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-600 text-white">
-                        Después
-                    </button>
-                    <button type="submit" class="flex-1 btn-gold text-black py-3 rounded-xl font-bold hover:shadow-xl transition">
-                        ¡Listo! 🎉
-                    </button>
-                </div>
-                <p class="text-center text-xs text-gray-500 mt-4">
-                    Puedes continuar como invitado si prefieres
+            <div class="space-y-4">
+                <input type="text" id="registerName" placeholder="Nombre completo" 
+                       class="w-full px-4 py-3 rounded-xl bg-white/10 border border-cream-500/30 text-white placeholder-cream-400">
+                
+                <input type="email" id="registerEmail" placeholder="Correo electrónico" 
+                       class="w-full px-4 py-3 rounded-xl bg-white/10 border border-cream-500/30 text-white placeholder-cream-400">
+                
+                <input type="tel" id="registerPhone" placeholder="Teléfono (opcional)" 
+                       class="w-full px-4 py-3 rounded-xl bg-white/10 border border-cream-500/30 text-white placeholder-cream-400">
+                
+                <button onclick="registerUser()" class="w-full btn-cream text-green-900 py-3 rounded-xl font-bold hover:shadow-xl transition">
+                    Registrarse
+                </button>
+                
+                <p class="text-center text-cream-400 text-sm">
+                    ¿Ya tienes cuenta? <button onclick="hideRegister(); showLogin();" class="text-cream-200 hover:text-white font-semibold">Inicia sesión</button>
                 </p>
-            </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chat Interface -->
+    <div id="chatInterface" class="hidden min-h-screen flex flex-col">
+        <!-- Header -->
+        <div class="glass-dark sticky top-0 z-50 px-4 py-3 flex items-center justify-between border-b border-cream-500/20">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-cream-500 shadow-lg bg-white flex items-center justify-center p-0">
+                    <img src="/tercetto.png" 
+                         alt="TERCETTO" 
+                         class="w-full h-full object-cover"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='☕'">
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-cream-100 font-ballpoint">TERCETTO</h1>
+                    <p class="text-xs text-cream-400" id="userGreeting">Espresso Bar</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="openMenu()" class="btn-green px-4 py-2 rounded-lg text-white font-semibold text-sm hover:shadow-xl transition">
+                    📋 Menú
+                </button>
+                <button onclick="openReviews()" class="btn-cream px-4 py-2 rounded-lg text-green-900 font-semibold text-sm hover:shadow-xl transition">
+                    ⭐ Reseñas
+                </button>
+                <button onclick="logout()" class="glass-light px-3 py-2 rounded-lg text-cream-200 hover:text-white transition text-sm">
+                    🚪 Salir
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="chatMessages" class="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+            <!-- Messages will be inserted here -->
+        </div>
+
+        <!-- Quick Actions -->
+        <div id="quickActions" class="px-4 pb-4">
+            <div class="flex gap-2 overflow-x-auto pb-2">
+                <button onclick="sendQuickMessage('¿Cuál es el menú de hoy?')" class="quick-btn glass-light px-4 py-2 rounded-lg text-cream-200 text-sm whitespace-nowrap hover:text-white transition">
+                    📋 Ver menú
+                </button>
+                <button onclick="sendQuickMessage('¿Cuáles son las bebidas más populares?')" class="quick-btn glass-light px-4 py-2 rounded-lg text-cream-200 text-sm whitespace-nowrap hover:text-white transition">
+                    ⭐ Más populares
+                </button>
+                <button onclick="sendQuickMessage('Quiero una recomendación personalizada')" class="quick-btn glass-light px-4 py-2 rounded-lg text-cream-200 text-sm whitespace-nowrap hover:text-white transition">
+                    💡 Recomiéndame
+                </button>
+                <button onclick="sendQuickMessage('¿Qué bebidas tienen menos cafeína?')" class="quick-btn glass-light px-4 py-2 rounded-lg text-cream-200 text-sm whitespace-nowrap hover:text-white transition">
+                    😴 Baja cafeína
+                </button>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="glass-dark px-4 py-4 border-t border-cream-500/20">
+            <div class="flex gap-2">
+                <input 
+                    type="text" 
+                    id="userInput" 
+                    placeholder="Escribe tu mensaje..." 
+                    class="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-cream-500/30 text-white placeholder-cream-400"
+                    onkeypress="if(event.key === 'Enter') sendMessage()"
+                >
+                <button 
+                    onclick="sendMessage()" 
+                    class="btn-cream px-6 py-3 rounded-xl font-bold hover:shadow-xl transition"
+                >
+                    Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Modal -->
+    <div id="menuModal" class="modal-backdrop hidden" onclick="closeMenuBackdrop(event)">
+        <div class="modal-container">
+            <div class="menu-header-sticky px-4 py-4 border-b border-cream-500/20">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold text-cream-100 font-ballpoint">Nuestro Menú</h2>
+                    <button onclick="closeMenu()" class="text-cream-300 hover:text-white text-3xl leading-none">&times;</button>
+                </div>
+                <p class="text-cream-400 text-sm mt-1">Descubre nuestras deliciosas opciones</p>
+            </div>
+            
+            <div class="menu-content-scroll px-4 py-6">
+                <div id="menuContent" class="space-y-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Modal -->
+    <div id="reviewsModal" class="modal-backdrop hidden" onclick="closeReviewsBackdrop(event)">
+        <div class="modal-container">
+            <div class="menu-header-sticky px-4 py-4 border-b border-cream-500/20">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-2xl font-bold text-cream-100 font-ballpoint">Reseñas</h2>
+                    <button onclick="closeReviews()" class="text-cream-300 hover:text-white text-3xl leading-none">&times;</button>
+                </div>
+                <p class="text-cream-400 text-sm mt-1">Comparte tu experiencia ☕</p>
+            </div>
+            
+            <div class="menu-content-scroll px-4 py-6">
+                <div class="glass-dark p-4 rounded-xl mb-6">
+                    <h3 class="text-lg font-bold text-cream-100 mb-3">🏆 Top 3 Mejor Calificadas</h3>
+                    <div id="topRatedDrinks" class="space-y-2"></div>
+                </div>
+
+                <div class="glass-dark p-6 rounded-xl mb-6">
+                    <h3 class="text-lg font-bold text-cream-100 mb-4">✍️ Deja tu reseña</h3>
+                    
+                    <div class="space-y-4">
+                        <select id="reviewDrinkSelect" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-cream-500/30 text-white">
+                            <option value="">-- Selecciona una bebida --</option>
+                        </select>
+                        
+                        <div>
+                            <p class="text-cream-300 text-sm mb-2">Calificación:</p>
+                            <div class="star-rating">
+                                <span class="star" data-rating="1">★</span>
+                                <span class="star" data-rating="2">★</span>
+                                <span class="star" data-rating="3">★</span>
+                                <span class="star" data-rating="4">★</span>
+                                <span class="star" data-rating="5">★</span>
+                            </div>
+                        </div>
+                        
+                        <textarea 
+                            id="reviewComment" 
+                            placeholder="Cuéntanos tu experiencia (opcional)" 
+                            class="w-full px-4 py-3 rounded-xl bg-white/10 border border-cream-500/30 text-white placeholder-cream-400 min-h-24"
+                        ></textarea>
+                        
+                        <button onclick="submitReview()" class="w-full btn-cream text-green-900 py-3 rounded-xl font-bold hover:shadow-xl transition">
+                            Enviar Reseña
+                        </button>
+                    </div>
+                </div>
+
+                <div class="glass-dark p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-cream-100 mb-4">💬 Todas las reseñas</h3>
+                    <div id="reviewsList" class="space-y-3"></div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // MENÚ COMPLETO DE JURELL SUSHI
-        const MENU_DATA = {
-            "ENTRADAS": [
-                {name: "Edamame con sal marina", price: 85, tags: ["V", "GF"], desc: "Vainas de soya al vapor"},
-                {name: "Edamame al ajo y limón", price: 95, tags: ["V", "GF"], desc: "Salteado ligero con ajo, limón y sal ahumada"},
-                {name: "Gyoza de pollo", price: 119, desc: "Empanadillas a la plancha con jengibre, ajo y salsa ponzu"},
-                {name: "Gyoza de vegetales", price: 115, tags: ["VG"], desc: "Col, zanahoria y shiitake; ponzu"},
-                {name: "Tori Karaage", price: 139, desc: "Pollo crujiente marinado en jengibre-soya; mayonesa cítrica"},
-                {name: "Ebi Tempura", price: 169, desc: "Camarón en tempura con salsa tentsuyu"},
-                {name: "Veggie Tempura", price: 139, tags: ["VG"], desc: "Camote, espárrago, pimiento y shiitake"},
-                {name: "Takoyaki", price: 129, desc: "Bolitas de pulpo, salsa okonomiyaki, katsuobushi"},
-                {name: "Yakitori", price: 129, desc: "Brochetas de pollo glaseadas con tare"},
-                {name: "Tartar de atún con tostadas de nori", price: 169, tags: ["🌶️"], desc: "Atún, aguacate, cebollín, mayo picante"},
-                {name: "Tartar de salmón y yuzu", price: 175, desc: "Salmón, pepino, shiso, yuzu-ponzu"}
+        // ==================== CONFIGURATION ====================
+        // TODAS las API keys están en Vercel (backend)
+        // El frontend NO tiene acceso directo a ninguna credencial
+
+        // ==================== USER MANAGEMENT ====================
+        let currentUser = null;
+        let guestId = localStorage.getItem('tercetto_guest_id') || `guest_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem('tercetto_guest_id', guestId);
+
+        let chatHistory = [];
+        let currentRating = 0;
+
+        // Menu Data
+                const MENU_DATA = {
+            'ESPRESSO': [
+                {name: 'Espresso doble', price: '$40', desc: 'Doble shot de espresso intenso'},
+                {name: 'Macchiato', price: '$50', desc: 'Espresso con toque de leche'},
+                {name: 'Cortado', price: '$50', desc: 'Espresso con leche caliente'},
+                {name: 'Americano', price: '$50', desc: 'Espresso con agua caliente'},
+                {name: 'Flat White', price: '$65', desc: 'Espresso con microespuma sedosa'},
+                {name: 'Cappuccino', price: '$65', desc: 'Espresso con espuma de leche'},
+                {name: 'Latte (frío | caliente)', price: '$85', desc: 'Espresso con leche vaporizada o fría'},
+                {name: 'Coco Latte', price: '$85', desc: 'Latte con sabor a coco'},
+                {name: 'Espresso tónico', price: '$75', desc: 'Espresso con agua tónica'},
+                {name: 'Espresso naranja', price: '$75', desc: 'Espresso con jugo de naranja'},
+                {name: 'Espresso coco', price: '$75', desc: 'Espresso con agua de coco'},
+                {name: 'Espresso limón miel', price: '$80', desc: 'Espresso con limón y miel'},
+                {name: 'Cold Brew', price: '$70', desc: 'Café en frío por 12 horas'},
+                {name: 'Cold Brew tónico', price: '$75', desc: 'Cold brew con agua tónica'},
+                {name: 'Cold Brew limonada', price: '$75', desc: 'Cold brew con limonada'},
+                {name: '✨ Jarabes disponibles', price: '+$15', desc: 'Vainilla, caramelo, coco, avellana, crema irlandesa'},
             ],
-            "SOPAS Y ENSALADAS": [
-                {name: "Miso shiromiso", price: 55, tags: ["VG", "GF"], desc: "Caldo miso blanco, tofu, wakame"},
-                {name: "Miso rojo con hongos", price: 65, tags: ["VG", "GF"], desc: "Miso aka y shiitake"},
-                {name: "Ensalada Sunomono", price: 85, tags: ["V", "GF"], desc: "Pepino, ajonjolí, vinagre de arroz"},
-                {name: "Ensalada de wakame", price: 99, tags: ["V"], desc: "Alga wakame, pepino y sésamo"},
-                {name: "Ensalada de surimi estilo California", price: 109, desc: "Surimi, pepino, masago, mayo japonesa"}
+            'ALTERNATIVAS': [
+                {name: 'Chai Latte (frío | caliente)', price: '$90', desc: 'Té especiado con leche'},
+                {name: 'Dirty Chai (frío | caliente)', price: '$120', desc: 'Chai latte con shot de espresso'},
+                {name: 'Mocha (frío | caliente)', price: '$85', desc: 'Latte con chocolate'},
+                {name: 'Tisanas (frío | caliente)', price: '$65', desc: 'Infusiones de hierbas'},
+                {name: 'Frappuccino', price: '$115', desc: 'Sabores: caramelo, chai, chocolate blanco, mocha, Oreo, vainilla'},
+                {name: 'Pumpkin Spice Latte', price: '$80', desc: 'Bebida de temporada - edición otoño'},
             ],
-            "NIGIRI (2 piezas)": [
-                {name: "Salmón", price: 95},
-                {name: "Atún", price: 105},
-                {name: "Hamachi (cola amarilla)", price: 109},
-                {name: "Ebi (camarón cocido)", price: 89},
-                {name: "Unagi (anguila)", price: 119},
-                {name: "Pulpo", price: 95},
-                {name: "Tamago (tortilla dulce)", price: 79, tags: ["VG"]},
-                {name: "Ikura (hueva de salmón)", price: 129},
-                {name: "Tako Aburi (pulpo flameado)", price: 99}
+            'REFRESHERS': [
+                {name: 'Floyd', price: '$120', desc: 'Zarzamora + uva + tónica'},
+                {name: 'Jackson', price: '$120', desc: 'Blueberry + limón + tónica'},
+                {name: 'Lennon', price: '$120', desc: 'Kiwi golden + mandarina + tónica'},
+                {name: 'Mercury', price: '$120', desc: 'Zarzamora + frambuesa + tónica'},
+                {name: 'Presley', price: '$120', desc: 'Kiwi golden + fresa + tónica'},
             ],
-            "SASHIMI (5 piezas)": [
-                {name: "Salmón", price: 165},
-                {name: "Atún", price: 179},
-                {name: "Hamachi", price: 185},
-                {name: "Pulpo", price: 165},
-                {name: "Surtido del Chef", price: 195}
-            ],
-            "ROLLOS CLÁSICOS (8 piezas)": [
-                {name: "Kappa (pepino)", price: 79, tags: ["V", "GF"]},
-                {name: "Aguacate", price: 89, tags: ["V", "GF"]},
-                {name: "Salmón", price: 119},
-                {name: "Atún", price: 125},
-                {name: "Spicy Tuna", price: 129, tags: ["🌶️"]},
-                {name: "California", price: 119, desc: "Surimi, pepino, mayo, masago"}
-            ],
-            "ROLLOS ESPECIALES (8 piezas)": [
-                {name: "Dragón", price: 179, desc: "Camarón tempura, pepino; topping de aguacate y salsa unagi"},
-                {name: "Arcoíris", price: 189, desc: "Base California cubierta con salmón, atún y hamachi"},
-                {name: "Volcán", price: 199, tags: ["🌶️"], desc: "Cangrejo real, masago; topping picante gratinado"},
-                {name: "Toro Trufa", price: 229, desc: "Atún graso, shiso, aceite de trufa y toque de yuzu"},
-                {name: "Filadelfia", price: 149, desc: "Salmón, queso crema, pepino"},
-                {name: "Soft-Shell Crab", price: 219, desc: "Cangrejo de concha suave frito, lechuga, ponzu"},
-                {name: "Mango Habanero", price: 169, tags: ["🌶️"], desc: "Camarón cocido, mango fresco y mayo de habanero"},
-                {name: "Ebi Crunch", price: 169, desc: "Camarón empanizado, aguacate; topping de panko crujiente"},
-                {name: "Salmón Tataki", price: 189, desc: "Salmón sellado, cebollín, salsa ponzu y ajonjolí"},
-                {name: "Veggie Rainbow", price: 149, tags: ["VG"], desc: "Aguacate, pepino, espárrago, shiitake; topping de mango y betabel"}
-            ],
-            "ROLLOS CALIENTES / EMPANIZADOS (8 piezas)": [
-                {name: "Hot Philadelphia", price: 159, desc: "Empanizado, salmón y queso crema; salsa spicy mayo"},
-                {name: "Dinamita", price: 169, tags: ["🌶️"], desc: "Surimi, jalapeño, queso crema; salsa eel + mayo picante"},
-                {name: "Katsu Roll", price: 169, desc: "Cerdo estilo katsu, col finamente picada, tonkatsu sauce"}
-            ],
-            "OPCIONES VEGETARIANAS / VEGANAS": [
-                {name: "Veggie Tempura Roll", price: 149, tags: ["VG"], desc: "Camote, espárrago, shiitake, ponzu"},
-                {name: "Garden Roll", price: 145, tags: ["V", "GF"], desc: "Papel de soya, aguacate, pepino, zanahoria, mango, menta"},
-                {name: "Tofu Teriyaki Bowl", price: 149, tags: ["VG"], desc: "Tofu a la plancha, arroz, brócoli, zanahoria"}
-            ],
-            "PLATOS CALIENTES Y BOWLS": [
-                {name: "Chirashi Bowl", price: 229, desc: "Arroz con surtido de sashimi, tamago y encurtidos"},
-                {name: "Poke de salmón yuzu", price: 189, desc: "Salmón, aguacate, pepino, yuzu-ponzu, sésamo"},
-                {name: "Yakimeshi (arroz frito)", price: 129, desc: "Vegetales y huevo; pollo +25 · camarón +35"},
-                {name: "Yakisoba", price: 149, desc: "Fideos salteados con verduras; pollo o res +25"},
-                {name: "Tonkatsu", price: 179, desc: "Cerdo empanizado, col, arroz, salsa tonkatsu"},
-                {name: "Teriyaki", price: 169, desc: "Pollo o salmón glaseado; arroz y vegetales"},
-                {name: "Ramen Shoyu", price: 179, desc: "Caldo de pollo/soya, fideos, chashu, huevo marinado"},
-                {name: "Ramen Miso", price: 185, desc: "Caldo miso, maíz, mantequilla, chashu; opción picante 🌶️"}
-            ],
-            "POSTRES": [
-                {name: "Mochi helado (2 pzas)", price: 85, desc: "Vainilla, matcha, mango o lichi"},
-                {name: "Cheesecake de yuzu", price: 99},
-                {name: "Tempura de plátano con miel de jengibre", price: 89}
-            ],
-            "BEBIDAS": [
-                {name: "Agua natural / mineral", price: "25 / 35"},
-                {name: "Limonada / Naranjada", price: 49, desc: "Natural, mineral o con hierbabuena"},
-                {name: "Té verde caliente", price: 39},
-                {name: "Matcha frío", price: 69},
-                {name: "Ramune (refresco japonés)", price: 55},
-                {name: "Ginger Ale artesanal", price: 55}
-            ],
-            "CERVEZAS Y SAKE": [
-                {name: "Asahi / Sapporo", price: 85},
-                {name: "Artesanales locales", price: "85-110"},
-                {name: "Sake Junmai (150ml)", price: 135},
-                {name: "Sake Ginjo (150ml)", price: 165},
-                {name: "Sake Nigori (150ml)", price: 155},
-                {name: "Umeshu (licor de ciruela, 120ml)", price: 110}
-            ],
-            "COCTELERÍA": [
-                {name: "Yuzu Sour", price: 139, desc: "Ginebra, yuzu, limón, clara, bitters"},
-                {name: "Saketini", price: 139, desc: "Ginebra, sake, twist de pepino"},
-                {name: "Lychee Martini", price: 149, desc: "Vodka, licor de lichi, jugo de lichi"},
-                {name: "Matcha Sour", price: 145, desc: "Whisky, matcha, limón, jarabe simple"},
-                {name: "Wasabi Martini", price: 149, tags: ["🌶️"], desc: "Vodka, toque de wasabi y pepino"},
-                {name: "Ginger Mule", price: 135, desc: "Vodka, jengibre, limón, ginger beer"},
-                {name: "Shiso Highball", price: 135, desc: "Whisky japonés, soda, hoja de shiso"},
-                {name: "Umeshu Spritz", price: 139, desc: "Umeshu, prosecco, soda"},
-                {name: "Tokyo Sunset", price: 149, desc: "Ron blanco, mango, maracuyá, yuzu-ponzu, bitter cítrico"},
-                {name: "Samurai Negroni", price: 149, desc: "Ginebra, Campari, sake ginjo"},
-                {name: "Nigori Colada", price: 149, desc: "Ron, coco, nigori, piña"}
+            'MATCHA': [
+                {name: 'Tradicional (frío | caliente)', price: '$90', desc: 'Matcha puro japonés'},
+                {name: 'Latte tradicional', price: '$80', desc: 'Matcha con leche'},
+                {name: 'Latte dulce (frío | caliente)', price: '$90', desc: 'Matcha con leche endulzado'},
+                {name: 'Fresa Latte', price: '$125', desc: 'Matcha con fresa'},
+                {name: 'Naranja', price: '$100', desc: 'Matcha con naranja'},
+                {name: 'Limón miel', price: '$125', desc: 'Matcha con limón y miel'},
+                {name: 'Soda mandarina', price: '$125', desc: 'Matcha con soda de mandarina'},
+                {name: 'Soda fresa limón', price: '$135', desc: 'Matcha con soda de fresa y limón'},
+                {name: 'Coco', price: '$125', desc: 'Matcha con coco'},
+                {name: 'Sucio (frío | caliente)', price: '$110', desc: 'Matcha con shot de espresso'},
             ]
         };
 
-        let currentUser = null;
-        let conversationHistory = [];
-        let detectedPreferences = {
-            allergies: [],
-            dislikes: [],
-            spicyLevel: null,
-            dietaryRestrictions: []
-        };
-        
-        // Cargar usuario
-        const savedUser = localStorage.getItem('sushiUser');
-        if (savedUser) {
+        // ==================== AUTH FUNCTIONS ====================
+        function showLogin() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.getElementById('loginModal').classList.add('flex');
+        }
+
+        function hideLogin() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('loginModal').classList.remove('flex');
+        }
+
+        function showRegister() {
+            document.getElementById('registerModal').classList.remove('hidden');
+            document.getElementById('registerModal').classList.add('flex');
+        }
+
+        function hideRegister() {
+            document.getElementById('registerModal').classList.add('hidden');
+            document.getElementById('registerModal').classList.remove('flex');
+        }
+
+        async function registerUser() {
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const phone = document.getElementById('registerPhone').value.trim();
+
+            if (!name || !email) {
+                alert('Por favor completa nombre y correo');
+                return;
+            }
+
             try {
-                currentUser = JSON.parse(savedUser);
-                currentUser.visits = (currentUser.visits || 1) + 1;
-                
-                if (currentUser.preferences) {
-                    detectedPreferences = {
-                        allergies: currentUser.preferences.allergies || [],
-                        dislikes: currentUser.preferences.dislikes || [],
-                        spicyLevel: currentUser.preferences.spicyLevel || null,
-                        dietaryRestrictions: currentUser.preferences.dietaryRestrictions || []
-                    };
+                const response = await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'register_customer',
+                        data: { email, name, phone: phone || null, guest_id: guestId }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    if (result.code === 'EMAIL_EXISTS') {
+                        alert('⚠️ Este email ya está registrado. Inicia sesión.');
+                        hideRegister();
+                        showLogin();
+                        return;
+                    }
+                    throw new Error(result.error);
                 }
-                
-                localStorage.setItem('sushiUser', JSON.stringify(currentUser));
-                updateUserUI();
-            } catch(e) {}
+
+                currentUser = result.customer;
+                localStorage.setItem('tercetto_user', JSON.stringify(currentUser));
+
+                hideRegister();
+                startChat();
+                alert(`✅ ¡Bienvenido ${name}! Tu cuenta ha sido creada.`);
+            } catch (error) {
+                console.error('Error al registrar:', error);
+                alert('❌ Error al registrar. Intenta de nuevo.');
+            }
         }
-        
-        // Cargar historial
-        const savedHistory = localStorage.getItem('conversationHistory');
-        if (savedHistory) {
+
+        async function loginUser() {
+            const email = document.getElementById('loginEmail').value.trim();
+
+            if (!email) {
+                alert('Por favor ingresa tu correo');
+                return;
+            }
+
             try {
-                conversationHistory = JSON.parse(savedHistory);
-            } catch(e) {}
+                const response = await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'login_customer',
+                        data: { email }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    if (result.code === 'NOT_FOUND') {
+                        alert('⚠️ Usuario no encontrado. ¿Deseas registrarte?');
+                        hideLogin();
+                        showRegister();
+                        document.getElementById('registerEmail').value = email;
+                        return;
+                    }
+                    throw new Error(result.error);
+                }
+
+                currentUser = result.customer;
+                localStorage.setItem('tercetto_user', JSON.stringify(currentUser));
+
+                hideLogin();
+                startChat();
+                alert(`✅ ¡Bienvenido de nuevo ${result.customer.name}!`);
+            } catch (error) {
+                console.error('Error al iniciar sesión:', error);
+                alert('❌ Error al iniciar sesión. Intenta de nuevo.');
+            }
         }
-        
-        // Renderizar menú
+
+        async function continueAsGuest() {
+            currentUser = null;
+            
+            try {
+                const deviceInfo = {
+                    userAgent: navigator.userAgent,
+                    screen: `${screen.width}x${screen.height}`,
+                    language: navigator.language
+                };
+
+                await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'track_guest',
+                        data: { guest_id: guestId, device_info: deviceInfo }
+                    })
+                });
+            } catch (error) {
+                console.error('Error tracking guest:', error);
+            }
+            
+            startChat();
+        }
+
+        function startChat() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('chatInterface').classList.remove('hidden');
+            
+            const greeting = currentUser 
+                ? `Hola ${currentUser.name} ☕` 
+                : 'Modo Invitado 👤';
+            
+            document.getElementById('userGreeting').textContent = greeting;
+            
+            addBotMessage(`¡Hola! Soy tu asistente virtual de Tercetto ☕\n\n¿En qué puedo ayudarte hoy?`);
+            
+            if (currentUser) {
+                loadChatHistory();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('tercetto_user');
+            currentUser = null;
+            chatHistory = [];
+            location.reload();
+        }
+
+        // ==================== SUPABASE FUNCTIONS (VIA BACKEND) ====================
+        async function saveConversation(userMessage, botResponse) {
+            try {
+                await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'save_conversation',
+                        data: {
+                            customer_id: currentUser?.id || null,
+                            guest_id: currentUser ? null : guestId,
+                            user_message: userMessage,
+                            bot_response: botResponse
+                        }
+                    })
+                });
+            } catch (error) {
+                console.error('Error saving conversation:', error);
+            }
+        }
+
+        async function loadChatHistory() {
+            if (!currentUser) return;
+
+            try {
+                const response = await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'get_chat_history',
+                        data: { customer_id: currentUser.id }
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success && result.conversations) {
+                    result.conversations.forEach(conv => {
+                        addUserMessage(conv.user_message, false);
+                        addBotMessage(conv.bot_response, false);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading chat history:', error);
+            }
+        }
+
+        async function saveReviewToSupabase(review) {
+            try {
+                await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'submit_review',
+                        data: {
+                            customer_id: currentUser?.id || null,
+                            guest_id: currentUser ? null : guestId,
+                            user_name: review.userName,
+                            drink_name: review.drink,
+                            rating: review.rating,
+                            comment: review.comment || null,
+                            is_verified: currentUser ? true : false
+                        }
+                    })
+                });
+            } catch (error) {
+                console.error('Error saving review:', error);
+                throw error;
+            }
+        }
+
+        async function loadReviewsFromSupabase() {
+            try {
+                const response = await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'get_reviews',
+                        data: {}
+                    })
+                });
+
+                const result = await response.json();
+                return result.success ? result.reviews : [];
+            } catch (error) {
+                console.error('Error loading reviews:', error);
+                return [];
+            }
+        }
+
+        async function loadTopRatedFromSupabase() {
+            try {
+                const response = await fetch('/api/supabase', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'get_top_rated',
+                        data: {}
+                    })
+                });
+
+                const result = await response.json();
+                return result.success ? result.topRated : [];
+            } catch (error) {
+                console.error('Error loading top rated:', error);
+                return [];
+            }
+        }
+
+        // ==================== CHAT FUNCTIONS ====================
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            input.value = '';
+            addUserMessage(message);
+            
+            await getBotResponse(message);
+        }
+
+        function sendQuickMessage(message) {
+            addUserMessage(message);
+            getBotResponse(message);
+        }
+
+        function addUserMessage(text, save = true) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-bubble flex justify-end';
+            messageDiv.innerHTML = `
+                <div class="message-user max-w-[80%] px-4 py-3 rounded-2xl text-white">
+                    ${text.replace(/\n/g, '<br>')}
+                </div>
+            `;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            chatHistory.push({role: 'user', content: text});
+        }
+
+        function addBotMessage(text, save = true) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-bubble flex justify-start';
+            messageDiv.innerHTML = `
+                <div class="message-bot max-w-[80%] px-4 py-3 rounded-2xl">
+                    ${text.replace(/\n/g, '<br>')}
+                </div>
+            `;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            chatHistory.push({role: 'assistant', content: text});
+        }
+
+        function showTyping() {
+            const messagesDiv = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing';
+            typingDiv.className = 'flex justify-start';
+            typingDiv.innerHTML = `
+                <div class="thinking-dots px-6 py-3 rounded-2xl">
+                    <span class="text-cream-300">●</span>
+                    <span class="text-cream-300">●</span>
+                    <span class="text-cream-300">●</span>
+                </div>
+            `;
+            messagesDiv.appendChild(typingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById('typing');
+            if (typing) typing.remove();
+        }
+
+        async function getBotResponse(userMessage) {
+            showTyping();
+
+            try {
+                // Llamada al backend de Vercel (serverless function)
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: userMessage,
+                        history: chatHistory.slice(-10),
+                        user: currentUser,
+                        menu: MENU_DATA
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                hideTyping();
+                
+                const botMessage = data.response;
+                addBotMessage(botMessage);
+                
+                // Save conversation to Supabase
+                await saveConversation(userMessage, botMessage);
+                
+            } catch (error) {
+                hideTyping();
+                console.error('Error:', error);
+                addBotMessage('❌ Lo siento, hubo un error al procesar tu mensaje. Por favor intenta de nuevo.');
+            }
+        }
+
+        // ==================== MENU FUNCTIONS ====================
         function renderMenu() {
             const container = document.getElementById('menuContent');
             container.innerHTML = '';
             
-            Object.keys(MENU_DATA).forEach((category, index) => {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'mb-6';
-                
+            Object.entries(MENU_DATA).forEach(([category, items], index) => {
                 const categoryId = `category-${index}`;
-                const isExpanded = index < 3; // Primeras 3 categorías abiertas por defecto
                 
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'glass-dark rounded-xl overflow-hidden';
                 categoryDiv.innerHTML = `
-                    <div class="menu-category glass-light border-l-4 border-gold-900/30 p-4 rounded-xl mb-3" onclick="toggleCategory('${categoryId}')">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-gold-400 font-serif">${category}</h3>
-                            <span id="${categoryId}-icon" class="text-2xl transition-transform ${isExpanded ? 'rotate-180' : ''}">▼</span>
-                        </div>
-                    </div>
-                    <div id="${categoryId}" class="space-y-2 ${isExpanded ? '' : 'hidden'}">
-                        ${MENU_DATA[category].map(item => `
-                            <div class="menu-item glass-light p-4 rounded-xl border border-gold-900/10">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h4 class="text-white font-semibold flex-1">${item.name}</h4>
-                                    <span class="text-gold-500 font-bold ml-4">${item.price}</span>
+                    <button 
+                        onclick="toggleCategory('${categoryId}')" 
+                        class="w-full p-4 flex justify-between items-center hover:bg-white/5 transition"
+                    >
+                        <span class="text-lg font-bold text-cream-100">${category}</span>
+                        <svg id="${categoryId}-icon" class="w-6 h-6 text-cream-300 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="${categoryId}" class="border-t border-cream-500/20 hidden">
+                        ${items.map(item => `
+                            <div class="p-4 border-b border-cream-500/10 last:border-b-0 hover:bg-white/5 transition">
+                                <div class="flex justify-between items-start mb-1">
+                                    <h4 class="font-semibold text-white">${item.name}</h4>
+                                    <span class="text-cream-200 font-bold ml-2">${item.price}</span>
                                 </div>
-                                ${item.desc ? `<p class="text-gray-400 text-sm mb-2">${item.desc}</p>` : ''}
-                                ${item.tags ? `
-                                    <div class="flex flex-wrap gap-2">
-                                        ${item.tags.map(tag => {
-                                            let color = 'gray';
-                                            if (tag === 'V' || tag === 'VG') color = 'green';
-                                            if (tag === 'GF') color = 'gold';
-                                            if (tag === '🌶️') color = 'red';
-                                            return `<span class="px-2 py-0.5 bg-${color}-900/20 border border-${color}-700/40 rounded-full text-${color}-400 text-xs">${tag}</span>`;
-                                        }).join('')}
-                                    </div>
-                                ` : ''}
+                                ${item.desc ? `<p class="text-cream-400 text-sm">${item.desc}</p>` : ''}
                             </div>
                         `).join('')}
                     </div>
@@ -709,7 +891,7 @@
                 container.appendChild(categoryDiv);
             });
         }
-        
+
         function toggleCategory(categoryId) {
             const content = document.getElementById(categoryId);
             const icon = document.getElementById(`${categoryId}-icon`);
@@ -717,326 +899,189 @@
             content.classList.toggle('hidden');
             icon.classList.toggle('rotate-180');
         }
-        
+
         function openMenu() {
-            const modal = document.getElementById('menuModal');
-            modal.classList.remove('hidden');
+            document.getElementById('menuModal').classList.remove('hidden');
             renderMenu();
             document.body.style.overflow = 'hidden';
-            
-            // Agregar animación de entrada
-            setTimeout(() => {
-                modal.style.opacity = '1';
-            }, 10);
         }
-        
+
         function closeMenu() {
-            const modal = document.getElementById('menuModal');
-            modal.style.opacity = '0';
-            
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }, 200);
+            document.getElementById('menuModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
-        
+
         function closeMenuBackdrop(event) {
-            // Cerrar solo si se hace click en el fondo oscuro (no en el contenido)
             if (event.target.id === 'menuModal') {
                 closeMenu();
             }
         }
-        
-        // Mensaje inicial
-        setTimeout(() => {
-            const greeting = currentUser ? `¡Bienvenido de nuevo, <strong>${currentUser.name}</strong>!` : '¡Konnichiwa!';
-            addBotMessage(`
-                <div class="flex items-start space-x-3">
-                    <div class="w-10 h-10 rounded-xl gold-gradient flex items-center justify-center text-xl">🍣</div>
-                    <div>
-                        <strong class="text-lg text-gold-500">${greeting}</strong> Soy tu asistente de JURELL SUSHI con IA<br><br>
-                        ${currentUser ? `<div class="p-2 glass-light rounded-lg mb-2 text-sm border border-gold-900/20"><strong class="text-gold-500">👤 Tu perfil:</strong><br>• Visitas: ${currentUser.visits}<br></div>` : ''}
-                        <strong class="text-gold-500">🎯 Puedo ayudarte con:</strong><br>
-                        • Recomendar platillos según tus gustos<br>
-                        • Explicar ingredientes y preparaciones<br>
-                        • Identificar opciones sin gluten, veganas o sin picante<br>
-                        • Detectar alérgenos en platillos<br><br>
-                        <strong class="text-gold-400">¡Presiona "Ver Menú" o pregúntame lo que quieras!</strong>
-                    </div>
-                </div>
-            `, false);
-        }, 500);
-        
-        function updateUserUI() {
-            if (currentUser) {
-                document.getElementById('guestView').classList.add('hidden');
-                document.getElementById('userView').classList.remove('hidden');
-                document.getElementById('userName').textContent = currentUser.name;
-                document.getElementById('userPhone').textContent = currentUser.phone;
-                document.getElementById('userVisits').textContent = currentUser.visits || 1;
-                document.getElementById('userFavorite').textContent = currentUser.favoriteDish || 'Aún no tienes';
-            } else {
-                document.getElementById('guestView').classList.remove('hidden');
-                document.getElementById('userView').classList.add('hidden');
+
+        // ==================== REVIEWS FUNCTIONS ====================
+        async function openReviews() {
+            document.getElementById('reviewsModal').classList.remove('hidden');
+            populateReviewDrinks();
+            
+            const reviews = await loadReviewsFromSupabase();
+            const topRated = await loadTopRatedFromSupabase();
+            
+            renderReviews(reviews);
+            renderTopRated(topRated);
+            
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReviews() {
+            document.getElementById('reviewsModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeReviewsBackdrop(event) {
+            if (event.target.id === 'reviewsModal') {
+                closeReviews();
             }
         }
-        
-        function showRegister() {
-            document.getElementById('registerModal').classList.remove('hidden');
-        }
-        
-        function hideRegister() {
-            document.getElementById('registerModal').classList.add('hidden');
-        }
-        
-        function toggleEmail() {
-            document.getElementById('emailSection').classList.toggle('hidden');
-        }
-        
-        async function handleRegister(e) {
-            e.preventDefault();
+
+        function populateReviewDrinks() {
+            const select = document.getElementById('reviewDrinkSelect');
+            select.innerHTML = '<option value="">-- Selecciona una bebida --</option>';
             
-            const name = document.getElementById('regName').value.trim();
-            const phone = document.getElementById('regPhone').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
+            Object.keys(MENU_DATA).forEach(category => {
+                if (category.includes('CAFÉ') || category.includes('BEBIDAS') || category.includes('ESPECIALES')) {
+                    MENU_DATA[category].forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.name;
+                        option.textContent = `${item.name} - ${item.price}`;
+                        select.appendChild(option);
+                    });
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    currentRating = parseInt(star.dataset.rating);
+                    updateStars(currentRating);
+                });
+            });
+        });
+
+        function updateStars(rating) {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        async function submitReview() {
+            const drinkName = document.getElementById('reviewDrinkSelect').value;
+            const comment = document.getElementById('reviewComment').value.trim();
             
-            if (!name || !phone) {
-                alert('Por favor completa los campos obligatorios');
+            if (!drinkName) {
+                alert('Por favor selecciona una bebida');
                 return;
             }
             
-            currentUser = {
-                name: name,
-                phone: phone,
-                email: email || null,
-                registeredAt: new Date().toISOString(),
-                visits: 1,
-                favoriteDish: null,
-                preferences: {
-                    allergies: detectedPreferences.allergies || [],
-                    dislikes: detectedPreferences.dislikes || [],
-                    spicyLevel: detectedPreferences.spicyLevel || 'medium',
-                    dietaryRestrictions: detectedPreferences.dietaryRestrictions || []
-                }
+            if (currentRating === 0) {
+                alert('Por favor selecciona una calificación');
+                return;
+            }
+            
+            const review = {
+                drink: drinkName,
+                rating: currentRating,
+                comment: comment,
+                userName: currentUser ? currentUser.name : 'Invitado'
             };
             
-            localStorage.setItem('sushiUser', JSON.stringify(currentUser));
-            
-            updateUserUI();
-            hideRegister();
-            
-            addBotMessage(`
-                <strong class="text-gold-500">🎉 ¡Perfecto, ${name}!</strong><br><br>
-                Ya estás registrado. Ahora puedo:<br>
-                • Recordar tus preferencias y alergias<br>
-                • Hacer recomendaciones personalizadas<br>
-                • Guardar tu historial de pedidos<br><br>
-                <em class="text-gray-400">¿Qué te gustaría ordenar hoy?</em>
-            `, false);
-            
-            document.getElementById('registerForm').reset();
-            document.getElementById('emailSection').classList.add('hidden');
-        }
-        
-        function logout() {
-            if (confirm('¿Seguro que quieres cerrar sesión?')) {
-                currentUser = null;
-                localStorage.removeItem('sushiUser');
-                conversationHistory = [];
-                detectedPreferences = {
-                    allergies: [],
-                    dislikes: [],
-                    spicyLevel: null,
-                    dietaryRestrictions: []
-                };
-                localStorage.removeItem('conversationHistory');
-                updateUserUI();
-                addBotMessage('👋 Sesión cerrada. Historial y preferencias borrados.', false);
+            try {
+                await saveReviewToSupabase(review);
+                
+                document.getElementById('reviewDrinkSelect').value = '';
+                document.getElementById('reviewComment').value = '';
+                currentRating = 0;
+                updateStars(0);
+                
+                const reviews = await loadReviewsFromSupabase();
+                const topRated = await loadTopRatedFromSupabase();
+                renderReviews(reviews);
+                renderTopRated(topRated);
+                
+                alert('¡Gracias por tu reseña! ☕');
+            } catch (error) {
+                console.error('Error submitting review:', error);
+                alert('❌ Error al enviar reseña. Intenta de nuevo.');
             }
         }
-        
-        function quickMessage(msg) {
-            document.getElementById('chatInput').value = msg;
-            sendMessage();
-        }
-        
-        function addUserMessage(text) {
-            const container = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = 'flex justify-end chat-bubble';
-            div.innerHTML = `<div class="message-user text-white rounded-2xl px-5 py-3 max-w-md shadow-lg">${text}</div>`;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-        
-        function addBotMessage(text, isAI = false) {
-            const container = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.className = 'flex justify-start chat-bubble';
+
+        function renderReviews(reviews) {
+            const container = document.getElementById('reviewsList');
             
-            const aiTag = isAI ? '<div class="flex items-center space-x-1 mb-2"><span class="text-xs text-gold-500">🤖 AI</span></div>' : '';
+            if (!reviews || reviews.length === 0) {
+                container.innerHTML = '<p class="text-cream-300 text-center py-8">Aún no hay reseñas. ¡Sé el primero!</p>';
+                return;
+            }
             
-            div.innerHTML = `<div class="message-bot text-white rounded-2xl px-5 py-3 max-w-md">${aiTag}${text}</div>`;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
+            container.innerHTML = reviews.map(review => `
+                <div class="glass-light p-4 rounded-xl border border-cream-900/20">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h4 class="text-gray-900 font-semibold">${review.drink_name}</h4>
+                            <p class="text-gray-700 text-xs">
+                                ${review.user_name}
+                                ${review.is_verified ? '<span class="text-green-400">✓</span>' : ''}
+                                • ${new Date(review.created_at).toLocaleDateString()}
+                            </p>
+                        </div>
+                        <div class="text-cream-200">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                    </div>
+                    ${review.comment ? `<p class="text-gray-800 text-sm">${review.comment}</p>` : ''}
+                </div>
+            `).join('');
         }
-        
-        function addThinkingMessage() {
-            const container = document.getElementById('chatMessages');
-            const div = document.createElement('div');
-            div.id = 'thinking-message';
-            div.className = 'flex justify-start chat-bubble';
-            div.innerHTML = `
-                <div class="thinking-dots text-gray-300 rounded-2xl px-5 py-3 max-w-md border border-gold-900/20">
-                    <div class="flex items-center space-x-2">
-                        <div class="w-2 h-2 bg-gold-500 rounded-full animate-bounce"></div>
-                        <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                        <div class="w-2 h-2 bg-gold-600 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
-                        <span class="ml-2">Pensando...</span>
+
+        function renderTopRated(topDrinks) {
+            const container = document.getElementById('topRatedDrinks');
+            
+            if (!topDrinks || topDrinks.length === 0) {
+                container.innerHTML = '<p class="text-cream-300 text-sm text-center">Sin reseñas aún</p>';
+                return;
+            }
+            
+            container.innerHTML = topDrinks.map((item, index) => `
+                <div class="glass-light pl-4 pr-4 py-4 rounded-xl border-l-4 border-cream-500 hover:bg-white/5 transition cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-1">${item.drink_name}</h4>
+                            <p class="text-xs text-cream-400">${item.total_reviews} reseña${item.total_reviews > 1 ? 's' : ''}</p>
+                        </div>
+                        <div class="text-cream-200 font-bold">★ ${item.average_rating}</div>
                     </div>
                 </div>
-            `;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
+            `).join('');
         }
-        
-        function removeThinkingMessage() {
-            const thinking = document.getElementById('thinking-message');
-            if (thinking) thinking.remove();
-        }
-        
-        function analyzeUserMessage(text) {
-            const lower = text.toLowerCase();
-            let preferencesChanged = false;
-            
-            // Detectar alergias
-            const allergyPhrases = ['alérgico', 'alergia', 'no puedo comer', 'me hace daño'];
-            if (allergyPhrases.some(phrase => lower.includes(phrase))) {
-                const ingredients = ['camarón', 'camaron', 'pescado', 'mariscos', 'gluten', 'lacteos', 'soya', 'huevo', 'nueces', 'sesamo', 'ajonjoli'];
-                ingredients.forEach(ing => {
-                    if (lower.includes(ing) && !detectedPreferences.allergies.includes(ing)) {
-                        detectedPreferences.allergies.push(ing);
-                        preferencesChanged = true;
-                    }
-                });
-            }
-            
-            // Detectar nivel de picante
-            if (lower.includes('poco picante') || lower.includes('no picante') || lower.includes('suave')) {
-                if (detectedPreferences.spicyLevel !== 'bajo') {
-                    detectedPreferences.spicyLevel = 'bajo';
-                    preferencesChanged = true;
-                }
-            } else if (lower.includes('muy picante') || lower.includes('extra picante')) {
-                if (detectedPreferences.spicyLevel !== 'alto') {
-                    detectedPreferences.spicyLevel = 'alto';
-                    preferencesChanged = true;
-                }
-            }
-            
-            // Guardar preferencias
-            if (currentUser && preferencesChanged) {
-                currentUser.preferences = {
-                    allergies: detectedPreferences.allergies,
-                    dislikes: detectedPreferences.dislikes,
-                    spicyLevel: detectedPreferences.spicyLevel,
-                    dietaryRestrictions: detectedPreferences.dietaryRestrictions
-                };
-                localStorage.setItem('sushiUser', JSON.stringify(currentUser));
-            }
-        }
-        
-        async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if (!text) return;
-            
-            addUserMessage(text);
-            input.value = '';
-            
-            analyzeUserMessage(text);
-            addThinkingMessage();
-            
-            try {
-                // Preparar contexto del usuario
-                let userContext = `Eres un asistente experto de JURELL SUSHI. Tu trabajo es ayudar a los clientes con el menú, recomendar platillos y responder preguntas sobre ingredientes y alergias.\n\n`;
-                userContext += `MENÚ COMPLETO:\n${JSON.stringify(MENU_DATA, null, 2)}\n\n`;
-                
-                if (currentUser) {
-                    userContext += 'PERFIL DEL CLIENTE:\n';
-                    userContext += `- Nombre: ${currentUser.name}\n`;
-                    userContext += `- Visitas: ${currentUser.visits || 1}\n`;
-                }
-                
-                if (detectedPreferences.allergies.length > 0) {
-                    userContext += '\n🚫 ALERGIAS DETECTADAS:\n';
-                    userContext += detectedPreferences.allergies.map(a => `- ${a.toUpperCase()}`).join('\n');
-                    userContext += '\n⚠️ NUNCA recomiendes platillos con estos ingredientes.\n';
-                }
-                
-                if (detectedPreferences.spicyLevel) {
-                    userContext += `\n🌶️ Preferencia de picante: ${detectedPreferences.spicyLevel}\n`;
-                }
-                
-                userContext += '\nRESPONDE EN ESPAÑOL, de forma amigable y concisa. Usa emojis moderadamente. Si mencionas precios, usa el formato $XXX MXN.';
-                
-                const messages = [];
-                messages.push({role: 'system', content: userContext});
-                
-                const recentHistory = conversationHistory.slice(-6);
-                messages.push(...recentHistory);
-                messages.push({role: 'user', content: text});
-                
-                // Llamar al backend
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        messages: messages
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (!data.success) {
-                    throw new Error(data.error || 'Error en la respuesta');
-                }
-                
-                removeThinkingMessage();
-                addBotMessage(data.message, true);
-                
-                conversationHistory.push(
-                    {role: 'user', content: text},
-                    {role: 'assistant', content: data.message}
-                );
-                
-                if (conversationHistory.length > 20) {
-                    conversationHistory = conversationHistory.slice(-20);
-                }
-                
-                localStorage.setItem('conversationHistory', JSON.stringify(conversationHistory));
-                
-            } catch(error) {
-                removeThinkingMessage();
-                addBotMessage('⚠️ Error de conexión. Asegúrate de configurar el backend en /api/chat. Error: ' + error.message, false);
-                console.error('Error:', error);
-            }
-        }
-        
-        // Cerrar modal con ESC
+
+        // ==================== INITIALIZATION ====================
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeMenu();
+                closeReviews();
+                hideLogin();
                 hideRegister();
             }
         });
-        
-        console.log('🍣 JURELL SUSHI - Chatbot AI Premium');
-        console.log('✅ Menú completo integrado');
-        console.log('📖 Carta digital interactiva');
-        console.log('🎨 Diseño personalizado');
+
+        console.log('☕ TERCETTO Espresso Bar - Chatbot AI');
+        console.log('✅ 100% Backend - Todas las API keys en Vercel');
+        console.log('✅ Sin credenciales en el frontend');
+        console.log('🚀 Listo para producción');
     </script>
 </body>
 </html>
+
